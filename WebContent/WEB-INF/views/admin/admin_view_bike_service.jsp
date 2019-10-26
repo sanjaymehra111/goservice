@@ -352,8 +352,6 @@
                 </tr>
               </thead>
               <tbody id="view_bike_details" style="font-size: 14px; border-collapse:separate; border-spacing:0 15px;">
-    
-                
               </tbody>
             </table>
           </div>
