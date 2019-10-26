@@ -1,0 +1,366 @@
+
+<div class="provider_team">
+        <br><br><br>
+
+        <style>
+        
+        
+        .test-2 
+            {
+              /*background-color: rgba(160, 68, 68, 0.932);*/
+              background-image: url('/goservice/files/service_provider_images/user_back2.jpeg');
+              background-size: 100% 100%;
+              box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.308);
+              transition: 0.3s;
+              color: #2a2b3d;
+              border-radius: 10px;
+            }
+            .test-2:hover
+            {
+              transform: scale(1.021);
+              box-shadow: 5px 5px 20px rgba(150, 150, 150, 0.308);
+            }
+            
+            .edit_member_image1, .user_image1
+            {
+              height: 150px;
+              width: 150px;
+              border-radius: 100%;
+              border: solid 3px white;
+              padding: 3px;
+              box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.151);
+              transition: 0.2s;
+            }
+            .user_image1:hover
+            {
+              transform: scale(1.1);
+            }
+            .text_field5
+            {
+              border: none;
+              outline: none;
+              border-bottom: solid 1px #2a2b3d;
+              background: transparent;
+              width: 47%;
+              padding: 10px;
+              font-size: 15px;
+              text-align: center;
+              padding-left: 35px;
+              cursor: default;
+              transition: 0.3s;
+            }
+        
+            .text_field5:focus
+            {
+              border-bottom: solid 1px rgb(9, 156, 156);
+            }
+            .fa_text_fonts
+            {
+              font-size: 20px;
+              position: absolute;
+              margin-top: 10px;
+              margin-left:5px;
+              color: #6f6486;
+              transition: 0.3s;
+            }
+            
+            .profile_edit_button1, .team_edit_button1
+            {
+              width: 45%;
+              padding: 10px;
+              border: none;
+              outline: none;
+              background: transparent;
+              text-transform: uppercase;
+              color: white;
+              font-size: 17px;
+              background:#6f6486 ;
+              transition: 0.5s;
+              border-top-left-radius: 30px;
+              border-bottom-right-radius: 30px;
+              border-top-right-radius: 0px;
+              border-bottom-left-radius: 0px;
+        
+            }
+            .team_edit_button1
+            {
+              transition: 0.5s;
+              width: 50%;
+              padding: 7px;
+              font-weight: bold;
+              background-color: rgba(255, 255, 255, 0.623);
+            }
+
+            .profile_edit_button2:hover, .profile_cancel_button2:hover, .profile_save_button2:hover, .team_edit_button1:hover
+            {
+              background: #2a2b3d;
+              box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.596);
+            }
+         
+             .profile_edit_button2:active, .profile_cancel_button2:active, .profile_save_button2:active, .team_edit_button1:active
+            {
+              transition: 0.2s;
+              transform: scale(0.98);
+              box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.178);
+            }
+            .profile_buttons
+            {
+              transition: 0.5s;
+              opacity: 0;
+            }
+
+            .camera_icon1
+            {
+              display: none;
+              position: absolute;
+              width: 40px;
+              width: 40px;
+              margin-top: -5%;
+              margin-left: 53%;
+              border-radius: 100%;
+              transition: 0.3s;
+              cursor: pointer;
+            }
+            .camera_icon1:hover
+            {
+              border: solid 2px rgb(255, 255, 255);
+              transform: scale(1.05);
+              box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.329);
+            }
+            .camera_icon1:active
+            {
+              transform: scale(1);
+              box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.644);
+            }
+            @media(max-width:975px)
+            {
+              .profile_edit_button1
+              {
+                width: 45%;
+              }
+              .
+            {
+              width: 100%;
+            }
+              .camera_icon1
+            {
+              transition: 0.0s;
+              margin-top: -7%;
+              margin-left: 53%;
+            }
+              .fa_text_fonts
+            {
+              margin-top: 8px;
+              font-size: 15px;
+            }
+        
+              .text_field5
+            {
+              text-align: left;
+              padding: 5px;
+              font-size: 15px;
+              width: 100%;
+              padding-left: 35px;
+            }
+        
+            }
+        
+            @media(max-width:575px)
+            {
+            .camera_icon1
+            {
+              transition: 0.0s;
+              margin-top: -10%;
+              margin-left: 53%;
+            }
+            }
+        
+        </style>
+     
+  
+        
+        <script>
+
+          
+        $(function(){
+          $(".text_field5").focus(function(){
+            $(".fa_text_fonts1").css({"color":"#6f6486"});
+            $(this).prev(".fa_text_fonts").css({"color":"rgb(9, 156, 156)"});
+          })
+        })
+
+
+        $(function(){
+            $(".profile_edit_button2").click(function(){
+              $(this).hide();
+              $(this).css({"opacity":"0"});
+              $(".profile_buttons").show();
+              $(".camera_icon1").show();
+              $(".profile_buttons").css({"opacity":"1"});
+              $(".text_field5").attr("readonly",false);
+              $(".text_field5").css({"cursor":"auto"});
+
+            });
+        
+            $(".profile_cancel_button2, .profile_save_button2").click(function(){
+              $(".profile_buttons").hide();
+              $(".camera_icon1").hide();
+              $(".profile_edit_button2").show();
+              $(".profile_buttons").css({"opacity":"0"});
+              $(".profile_edit_button2").css({"opacity":"1"});
+              $(".text_field5").attr("readonly",true);
+              $(".text_field5").css({"cursor":"default"});
+            })
+
+            $(".camera_icon1").click(function(){
+              $(".user_profile1").click();
+            });
+
+
+            $(".user_profile1").change(function() {
+              readURL(this);
+            });
+
+            function readURL(input) {
+              if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                  $('.edit_member_image1').attr('src', e.target.result);
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+              }
+            }
+
+
+        })
+        
+        </script>
+        
+         
+<div class="provider_team_members">
+
+
+          <div class="col-md-4">
+            <div class="test-2">
+              <div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">
+              <br><br>
+              <center><img src="/goservice/files/service_provider_images/user1.png" class="user_image1"></center>
+              <br>
+              <div class="team_member_details" style="text-align: center;">
+                <div style="font-size: 22px; font-weight: bold; color: white;">Rajan Singh</div>
+                <div style="font-size: 15px;  color: white;">8447494858</div><br>
+                <button type="button" class="team_edit_button1" data-toggle="modal" data-target="#myModal">Edit</button>
+              </div>
+              <div class="container-fluid"></div>
+              <br>
+            </div>
+            </div>  
+            <br><br>            
+          </div>
+
+             <div class="col-md-4">
+            <div class="test-2">
+              <div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">
+              <br><br>
+              <center><img src="/goservice/files/service_provider_images/user2.png" class="user_image1"></center>
+              <br>
+              <div class="team_member_details" style="text-align: center;">
+                <div style="font-size: 22px; font-weight: bold; color: white;">Biplab Tripathi</div>
+                <div style="font-size: 15px;  color: white;">8447485968</div><br>
+                <button type="button" class="team_edit_button1" data-toggle="modal" data-target="#myModal">Edit</button>
+              </div>
+              <div class="container-fluid"></div>
+              <br>
+            </div>
+            </div>  <br><br>
+            </div>
+
+             <div class="col-md-4">
+            <div class="test-2">
+              <div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">
+              <br><br>
+              <center><img src="/goservice/files/service_provider_images/user4.png" class="user_image1"></center>
+              <br>
+              <div class="team_member_details" style="text-align: center;">
+                <div style="font-size: 22px; font-weight: bold; color: white;">Rahul Kushwaha</div>
+                <div style="font-size: 15px;  color: white;">8441425658</div><br>
+                <button type="button" class="team_edit_button1" data-toggle="modal" data-target="#myModal">Edit</button>
+              </div>
+              <div class="container-fluid"></div>
+              <br>
+            </div>
+            </div>  <br><br>
+            </div>
+
+        </div>
+
+<div class="Edit_Member_Model">
+
+            <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Edit Team Member</h4>
+          </div>
+          <div class="modal-body">
+              <div class="col-md-12">
+                  <div class="test-3"><br>
+                    <center><img src="/goservice/files/service_provider_images/user1.png" class="edit_member_image1"></center>
+                    <img src="/goservice/files/service_provider_images/camera_icon1.png" class="camera_icon1">
+                    <input type="file" class="user_profile1 hide">
+                    <br><br>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10" style="text-align: center;">
+              
+                      <i class="fa fa-user fa_text_fonts fa_text_fonts1"></i>
+                      <input type="text" value="Sachin Maurya" name="provider_team_name" class="text_field5" readonly>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                      <i class="fa fa-phone fa_text_fonts fa_text_fonts1"></i>
+                      <input type="text" value="8447484748" name="provider_team_contact" class="text_field5" readonly>
+                        
+                      <br><br>
+              
+                      <i class="fa fa-envelope fa_text_fonts fa_text_fonts1"></i>
+                      <input type="text" value="Sachin111@gmail.com" name="provider_team_mail" class="text_field5" readonly>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                      <i class="fa fa-map-marker fa_text_fonts fa_text_fonts1"></i>
+                      <input type="text" value="Uttam Nagar, New Delhi, India 110059" name="provider_team_address" class="text_field5 " readonly>
+                      <br><br><br>
+              
+                      <button class="profile_edit_button1 profile_edit_button2">Edit</button>
+                      <div class="profile_buttons" style="display: none;">
+                          <button class="profile_edit_button1 profile_cancel_button2">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
+                          <button class="profile_edit_button1 profile_save_button2">Save</button>
+                      </div>
+                    </div><br>
+                  </div>
+                  </div>  
+
+                  <div class="container"></div>
+
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+  </div>
+
+
+
+</div>
+
+
+
+
+        </head>
