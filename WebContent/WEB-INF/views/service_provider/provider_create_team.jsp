@@ -161,7 +161,43 @@
 
     </style>
     
-    
+     <script>
+$(function(){
+$(".service_save_button3").click(function()
+		{
+		   var data = new FormData();
+			var url = "";
+			
+			var u_imgl = $(".provider_team_image").attr('src').length;
+			 if(u_imgl  < 1000)
+			 	{var url = "create_service_provider_members_no_img";}	
+			else
+				{var url = "create_service_provider_members";}
+				
+			data.append("name", $("#member_name").val());
+			data.append("contact", $("#member_contact").val());
+			data.append("email", $("#member_email").val());
+			data.append("address", $("#member_address").val());
+			data.append("provider_id", $("#provider_id").val());
+			data.append("file", $(".provider_team_1")[0].files[0]);
+			console.log(data);
+		    $.ajax({
+				 	url:url,
+				 	data: data,
+			 		enctype: 'multipart/form-data',
+				 	processData: false,
+				 	contentType: false,
+			 	  	type: 'Post',    
+				 	cache: false,
+				 	success : function(){alert("Update Success")},
+				 	error : function(){alert("Error Found")}
+
+		});//ajax close 
+	}); // button closed
+})	
+</script>
+  
+  
     <script>
 
     $(function(){
@@ -173,10 +209,6 @@
 
 
     $(function(){
-         $(".service_save_button3").click(function(){
-          alert("Done");
-        })
-
         $(".camera_icon3").click(function(){
           $(".provider_team_1").click();
         });
@@ -220,17 +252,19 @@
 <div class="col-md-5" style="text-align: center;">
 <br>
             <i class="fa fa-user fa_text_fonts1 fa_text_fonts12"></i>
-            <input type="text" name="provider_team_name" class="text_field3" placeholder="Team Member Name">
+            <input type="text" name="provider_team_name" class="text_field3" id="member_name" placeholder="Team Member Name">
             <br><br>
             <i class="fa fa-phone fa_text_fonts1 fa_text_fonts12"></i>
-            <input type="text" name="provider_team_contact" class="text_field3" placeholder="Team Member Contact">
+            <input type="text" name="provider_team_contact" class="text_field3" id="member_contact" placeholder="Team Member Contact">
             <br><br>
             <i class="fa fa-envelope fa_text_fonts1 fa_text_fonts12"></i>
-            <input type="email" name="provider_team_mail" class="text_field3" placeholder="Team Member Email">
+            <input type="email" name="provider_team_mail" class="text_field3" id="member_email" placeholder="Team Member Email">
             <br><br>
             <i class="fa fa-map-marker fa_text_fonts1 fa_text_fonts12"></i>
-            <input type="text" name="provider_team_address" class="text_field3" placeholder="Team Member Address">
+            <input type="text" name="provider_team_address" class="text_field3" id="member_address" placeholder="Team Member Address">
             <br><br>
+            <input type="text" value="1" class="hidden" id="provider_id">
+            
 </div>              
   
             <br>

@@ -14,10 +14,9 @@
 <link rel="shortcut icon" href="/goservice/files/images/logo3-plane.png">
 
 <!--For Multiple Select-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
- 
+ --> 
 <style>
 
     * {
@@ -582,10 +581,114 @@
     });
     
     })
+ </script>
+ 
+ <script>  
     
+    $(function GetCarDetails(){
+    	$.ajax({
+    		url:"view_car_service",
+    		contentType:"json",
+    		dataType:"json",
+    		success:function(data1){
+    			
+    			var i, j, text1="";
+    					
+    				    for(j=0; j<1; j++)
+	    				{
+    				    	text1+='<select class="selectpicker car_servicec_list" multiple data-live-search="true">';
+    				    		for(i=0; i<data1.length; i++)
+    				    		{
+        				    	text1+='<option>' +data1[i].maker+ '&nbsp;'+data1[i].model+'&nbsp;'+data1[i].service+'&nbsp;(&nbsp; &#8377 '+data1[i].charges+' &nbsp;) </option>';
+    				    		}
+        				    text1+='</style>'
+    				    }   
+	    					$("#view_car_details").html(text1);
+			},
+    		error:function(){alert("error")}
+    	})
+    });
+    
+    
+    
+    $(function GetBikeDetails(){
+        		$.ajax({
+        		url:"view_bike_service",
+        		contentType:"json",
+        		dataType:"json",
+        		success:function(data){
+        			var i,j, text="";
+        			
+        			for(j=0; j<1; j++)
+    				{
+    			    	text+='<select class="selectpicker bike_servicec_list" multiple data-live-search="true">';
+    			    	    for(i=0; i<data.length; i++)
+    	    				{
+        				    	text+='<option>' +data[i].maker+ '&nbsp;'+data[i].model+'&nbsp;'+data[i].service+'&nbsp;( &nbsp; &#8377 '+data[i].charges+' &nbsp;) </option>';
+        				    }
+        				text+='</style>'
+    			    }   
+    				
+    	    					$("#view_bike_details").html(text);
+    	    					
+        		},
+        		error:function(){alert("error")}
+        	})
+        });
+    
+    $(window).ready(function(){
+    	$('head').append('<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>');
+		$('head').append('<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"><\/script>');
+    })
+  
+            
 </script>
-    
 
+ 
+ <script>
+$(function(){
+$(".service_save_button2").click(function()
+		{
+		    var data1 = $(".car_servicec_list .filter-option-inner-inner").html().replace(/ *\([^)]*\) */g, "");
+    		var data2 = $(".bike_servicec_list .filter-option-inner-inner").html().replace(/ *\([^)]*\) */g, "");
+	
+			var data = new FormData();
+			var url = "";
+			
+			var u_imgl = $(".service_shop_image").attr('src').length;
+			 if(u_imgl  < 1000)
+			 	{var url = "update_service_provider_services_no_img";}	
+			else
+				{var url = "update_service_provider_services";}
+		
+
+			
+			data.append("shop_name", $("#provider_shop").val());
+			data.append("contact", $("#provider_contact").val());
+			data.append("email", $("#provider_email").val());
+			data.append("address", $("#provider_address").val());
+			data.append("car_service", data1);
+			data.append("bike_service", data2);
+			data.append("service_id", $("#service_id").val());
+			data.append("provider_id", $("#provider_id").val());
+			data.append("file", $(".user_service1")[0].files[0]);
+			console.log(data);
+		    $.ajax({
+				 	url:url,
+				 	data: data,
+			 		enctype: 'multipart/form-data',
+				 	processData: false,
+				 	contentType: false,
+			 	  	type: 'Post',    
+				 	cache: false,
+				 	success : function(){alert("Update Success")},
+				 	error : function(){alert("Error Found")}
+
+		});//ajax close 
+	}); // button closed
+})	
+</script>
+  
   </head>
       
   <body>
@@ -605,7 +708,7 @@
       </div> -->
 
       <ul class="categories">
-        <li ><i class="fa fa-home fa-fw" aria-hidden="true"></i><a> Dashboard</a>
+        <li ><i class="fa fa-home fa-fw" aria-hidden="true"></i><a> Dashboard </a>
         <ul class="side-nav-dropdown">
             <li class="import_provider hide_sidebar_button import_provider_dashboard" pagename="home" textname="Dashboard"><a href="#">Home</a></li>
             <li class="import_provider hide_sidebar_button" pagename="profile" textname="Profile"><a>Profile</a></li>
@@ -876,16 +979,6 @@
 
 
     $(function(){
-         $(".service_save_button2").click(function(){
-          
-          var data = $(".car_servicec_list .filter-option-inner-inner").html().replace(/ *\([^)]*\) */g, "");
-          var data2 = $(".bike_servicec_list .filter-option-inner-inner").html().replace(/ *\([^)]*\) */g, "");
-          //alert(data.replace(/ *\([^)]*\) */g, ""));
-          alert("Car Name : " + data);
-          alert("Bike Name : " + data2);
-
-        })
-
         $(".camera_icon2").click(function(){
           $(".user_service1").click();
         });
@@ -928,17 +1021,19 @@
 <div class="col-md-5" style="text-align: center;">
 <br>
             <i class="fa fa-home fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_name" class="text_field2" placeholder="Shop Name">
+            <input type="text" name="provider_shop_name" class="text_field2" id="provider_shop" placeholder="Shop Name">
             <br><br>
             <i class="fa fa-phone fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_contact" class="text_field2" placeholder="Shop Contact">
+            <input type="text" name="provider_shop_contact" class="text_field2" id="provider_contact" placeholder="Shop Contact">
             <br><br>
             <i class="fa fa-envelope fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="email" name="provider_shop_mail" class="text_field2" placeholder="Shop Email">
+            <input type="email" name="provider_shop_mail" class="text_field2" id="provider_email" placeholder="Shop Email">
             <br><br>
             <i class="fa fa-map-marker fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_address" class="text_field2" placeholder="Shop Address">
+            <input type="text" name="provider_shop_address" class="text_field2" id="provider_address" placeholder="Shop Address">
             <br><br>
+            <input type="text" value="1" class="hidden" id="service_id">
+            <input type="text" value="1" class="hidden" id="provider_id">
 </div>              
            
 <style>
@@ -957,34 +1052,26 @@ height: 40px;
 
 </style>
 
-<script>
-$(function(){
-
-$(".filter-option-inner-inner").html("Bike Service");
-})
-</script> 
 
 <div class="col-md-12">
 Select Car Services
 
-            <select class="selectpicker car_servicec_list" multiple data-live-search="true">
-                <option>hero  ( &nbsp; &#8377;1200-1800 &nbsp;) </option>
-                <option>tata  ( &nbsp; &#8377;900-1500 &nbsp;) </option>
-                <option>bmw  ( &nbsp; &#8377;1400-2802 &nbsp;) </option>
-                <option>maruti  ( &nbsp; &#8377;1420-1922 &nbsp;) </option>
-            </select>
+<div id="view_car_details"></div>
+
+            <!-- <select class="selectpicker car_servicec_list" multiple data-live-search="true">
+            <select id="view_car_details" multiple="multiple">
+            </select> -->
 
 <br><br>
 </div>
 
 <div class="col-md-12">
 Select Bike services
-             <select class="selectpicker bike_servicec_list" multiple data-live-search="true">
-                <option>hero  ( &nbsp; &#8377;1400-1900 &nbsp;) </option>
-                <option>pulser  ( &nbsp; &#8377;1900-2300 &nbsp;) </option>
-                <option>ktm  ( &nbsp; &#8377;1200-2402 &nbsp;) </option>
-                <option>tvs  ( &nbsp; &#8377;1550-1992 &nbsp;) </option>
-</select>
+<div id="view_bike_details"></div>
+
+<!--              <select id="view_bike_details" multiple="multiple">
+            </select>
+ -->            
 <br><br><br>
 </div>              
 
