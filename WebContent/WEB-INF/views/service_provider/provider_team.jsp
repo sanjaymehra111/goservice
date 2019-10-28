@@ -132,8 +132,23 @@
               transform: scale(1);
               box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.644);
             }
+            
+            .spacea
+            {	
+            	display: none;
+            }
+            
             @media(max-width:975px)
             {
+              .space
+            {	
+            	display: none;
+            }
+            .spacea
+            {	
+            	display: block;
+            }
+          
               .profile_edit_button1
               {
                 width: 45%;
@@ -180,8 +195,6 @@
   
         
         <script>
-
-          
         $(function(){
           $(".text_field5").focus(function(){
             $(".fa_text_fonts1").css({"color":"#6f6486"});
@@ -232,69 +245,129 @@
                 reader.readAsDataURL(input.files[0]);
               }
             }
-
-
         })
+      </script>
         
-        </script>
+
+
+    <script>
+    
+    $(function GetDetails(){
+    	var id=$(".provider_id").val();
+    	$.ajax({
+    		url:"view_provider_team_member",
+    		data:{provider_id:id},
+    		contentType:"json",
+    		dataType:"json",
+    		type:"GET",
+    		success:function(data){
+    			var i, text="";
+    			for(i=0; i<data.length; i++)
+	    			{
+    						text+='<div class="col-md-4">';
+		    				text+='<div class="test-2">';
+		    				text+='<div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">';
+		    				text+='<br><br>';
+		    				text+='<center><img src="/goservice/files/service_provider_images/images/'+data[i].image+'" class="user_image1"></center>';
+		    				text+='<br>';
+		    				text+='<div class="team_member_details" style="text-align: center;">';
+		    				text+='<div style="font-size: 22px; font-weight: bold; color: white;">'+data[i].name+'</div>';
+		    				text+='<div style="font-size: 15px;  color: white;">'+data[i].contact+'</div><br>';
+		    				text+='<button type="button" class="team_edit_button1" data-toggle="modal" value="'+data[i].team_member_id+'" data-target="#myModal">Edit</button>';
+		    				text+='</div>';
+		    				text+='<div class="container-fluid"></div>';
+		    				text+='<br>';
+		    				text+='</div>';
+		    				text+='</div>';  
+		    				text+='<br><br>';            
+		    				text+='</div>';
+    				}
+	    			$("#prrovider_team_members_details").html(text);
+				},
+    		error:function(){alert("error")}
+    	});
+    });
+    
+    
+    	/* $(function EditMembersDetails.on('click', team_edit_button1, function(){
+        	//var id = $(this).val();
+        	alert("asd");
+        	});
+       
+     */
+     
+     $(function EditMemberDetails(){
+    	 $(document).on('click','.team_edit_button1', function(){
+         		var id = $(this).val();
+         		$.ajax({
+            		url:"edit_provider_team_member",
+            		data:{team_member_id:id},
+            		contentType:"json",
+            		dataType:"json",
+            		type:"GET",
+            		success:function(data){
+            			console.log(data);
+            			$(".edit_member_image1").attr('src', '/goservice/files/service_provider_images/images/'+data[0].image+'');
+            			$(".edit_member_name").val(data[0].name);
+            			$(".edit_member_contact").val(data[0].contact);
+            			$(".edit_member_email").val(data[0].email);
+            			$(".edit_member_address").val(data[0].address);
+            			$(".team_member_id").val(data[0].team_member_id);
+            		},
+            		error:function(){alert("error")}
+            	});
+         		
+         	});
+    	 });
+     
+     
+     $(function UppdateMemberDetails(){
+    	 $(document).on('click','.profile_save_button2', function(){
+    		 
+    		var data = new FormData();
+ 			var url = "";
+ 			var u_imgl = $(".edit_member_image1").attr('src').length;
+ 			
+ 			 if(u_imgl  < 1000)
+ 			 	{var url = "update_service_provider_team_no_img";}	
+ 			else
+ 				{var url = "update_service_provider_team_img";}
+ 				
+ 			
+ 			data.append("name", $(".edit_member_name").val());
+ 			data.append("contact", $(".edit_member_contact").val());
+ 			data.append("email", $(".provider_email").val());
+ 			data.append("mail", $(".edit_member_email").val());
+ 			data.append("address", $(".edit_member_address").val());
+ 			data.append("team_member_id", $(".team_member_id").val());
+ 			data.append("file", $(".user_profile1")[0].files[0]);
+ 			console.log(data);
+ 		    $.ajax({
+ 				 	url:url,
+ 				 	data: data,
+ 			 		enctype: 'multipart/form-data',
+ 				 	processData: false,
+ 				 	contentType: false,
+ 			 	  	type: 'Post',    
+ 				 	cache: false,
+ 				 	success : function(){alert("Update Success")},
+ 				 	error : function(){alert("Error Found")}
+
+ 		});//ajax close 
+         		
+});
+});
+     
+     
+    </script>
+  
         
-         
 <div class="provider_team_members">
+<input type="text" value="1" class="provider_id hide">
 
-
-          <div class="col-md-4">
-            <div class="test-2">
-              <div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">
-              <br><br>
-              <center><img src="/goservice/files/service_provider_images/user1.png" class="user_image1"></center>
-              <br>
-              <div class="team_member_details" style="text-align: center;">
-                <div style="font-size: 22px; font-weight: bold; color: white;">Rajan Singh</div>
-                <div style="font-size: 15px;  color: white;">8447494858</div><br>
-                <button type="button" class="team_edit_button1" data-toggle="modal" data-target="#myModal">Edit</button>
-              </div>
-              <div class="container-fluid"></div>
-              <br>
-            </div>
-            </div>  
-            <br><br>            
-          </div>
-
-             <div class="col-md-4">
-            <div class="test-2">
-              <div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">
-              <br><br>
-              <center><img src="/goservice/files/service_provider_images/user2.png" class="user_image1"></center>
-              <br>
-              <div class="team_member_details" style="text-align: center;">
-                <div style="font-size: 22px; font-weight: bold; color: white;">Biplab Tripathi</div>
-                <div style="font-size: 15px;  color: white;">8447485968</div><br>
-                <button type="button" class="team_edit_button1" data-toggle="modal" data-target="#myModal">Edit</button>
-              </div>
-              <div class="container-fluid"></div>
-              <br>
-            </div>
-            </div>  <br><br>
-            </div>
-
-             <div class="col-md-4">
-            <div class="test-2">
-              <div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">
-              <br><br>
-              <center><img src="/goservice/files/service_provider_images/user4.png" class="user_image1"></center>
-              <br>
-              <div class="team_member_details" style="text-align: center;">
-                <div style="font-size: 22px; font-weight: bold; color: white;">Rahul Kushwaha</div>
-                <div style="font-size: 15px;  color: white;">8441425658</div><br>
-                <button type="button" class="team_edit_button1" data-toggle="modal" data-target="#myModal">Edit</button>
-              </div>
-              <div class="container-fluid"></div>
-              <br>
-            </div>
-            </div>  <br><br>
-            </div>
-
-        </div>
+<div id="prrovider_team_members_details">
+</div>
+</div>
 
 <div class="Edit_Member_Model">
 
@@ -319,18 +392,21 @@
                     <div class="col-md-10" style="text-align: center;">
               
                       <i class="fa fa-user fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="Sachin Maurya" name="provider_team_name" class="text_field5" readonly>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="text" value="Sachin Maurya" name="provider_team_name" class="text_field5 edit_member_name" readonly>
+						<span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	               		<span class="spacea"><br><brr></span>
                       <i class="fa fa-phone fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="8447484748" name="provider_team_contact" class="text_field5" readonly>
+                      <input type="text" value="8447484748" name="provider_team_contact" class="text_field5 edit_member_contact" readonly>
                         
                       <br><br>
               
                       <i class="fa fa-envelope fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="Sachin111@gmail.com" name="provider_team_mail" class="text_field5" readonly>
-                        &nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="text" value="Sachin111@gmail.com" name="provider_team_mail" class="text_field5 edit_member_email" readonly>
+       		              <span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+	        	          <span class="spacea"><br><brr></span>
                       <i class="fa fa-map-marker fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="Uttam Nagar, New Delhi, India 110059" name="provider_team_address" class="text_field5 " readonly>
+                      <input type="text" value="Uttam Nagar, New Delhi, India 110059" name="provider_team_address" class="text_field5 edit_member_address" readonly>
+                      <input type="text" class="text_field5 team_member_id hide" readonly>
                       <br><br><br>
               
                       <button class="profile_edit_button1 profile_edit_button2">Edit</button>

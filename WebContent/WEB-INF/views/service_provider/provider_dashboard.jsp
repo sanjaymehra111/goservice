@@ -596,7 +596,8 @@
     					
     				    for(j=0; j<1; j++)
 	    				{
-    				    	text1+='<select class="selectpicker car_servicec_list" multiple data-live-search="true">';
+    				    	//text1+='<select class="selectpicker car_servicec_list" multiple data-live-search="true">';
+    				    	text1+='<select class="car_servicec_list" multiple>';
     				    		for(i=0; i<data1.length; i++)
     				    		{
         				    	text1+='<option>' +data1[i].maker+ '&nbsp;'+data1[i].model+'&nbsp;'+data1[i].service+'&nbsp;(&nbsp; &#8377 '+data1[i].charges+' &nbsp;) </option>';
@@ -1018,8 +1019,8 @@ $(".service_save_button2").click(function()
           <br><br>
           </div>
 
-<div class="col-md-5" style="text-align: center;">
-<br>
+			<div class="col-md-5" style="text-align: center;">
+			<br>
             <i class="fa fa-home fa_text_fonts1 fa_text_fonts11"></i>
             <input type="text" name="provider_shop_name" class="text_field2" id="provider_shop" placeholder="Shop Name">
             <br><br>

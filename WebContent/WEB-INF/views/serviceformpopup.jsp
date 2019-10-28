@@ -810,15 +810,15 @@ document.getElementById("location_get").onclick = function LoadAddress()
                 	    var input = document.getElementById('search_location');
                 	    var autocomplete = new google.maps.places.Autocomplete(input);
                 	    
-                      google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                      	google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         var place = autocomplete.getPlace();
                         var lat2 = place.geometry.location.lat();
                         var lng2 = place.geometry.location.lng();
                         LatLng = new google.maps.LatLng(lat2, lng2);
                         map.setCenter(LatLng);
                         LocationFunction(lat2, lng2);
-                        });
-}
+                    });
+				}
 		
                 //Shop Location
                 function LocationFunction(lat, lng){

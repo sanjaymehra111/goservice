@@ -12,6 +12,7 @@ public class ProviderMemberModel {
 	String address;
 	String image;
 	String updated_date;
+	String created_date;
 	
 	public ProviderMemberModel() {}
 
