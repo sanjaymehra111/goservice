@@ -37,16 +37,67 @@ public class ProviderUpdateDaoImpl {
 	
 	public int UpdateService(ProviderServiceModel psm, String filename)
 	{
-		String query = "UPDATE service_provider_services SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',car_service='"+psm.getCar_service()+"',bike_service='"+psm.getBike_service()+"',image='"+filename+"',updated_date='"+date+"' WHERE service_id='"+psm.getService_id()+"'";
+		String query = "UPDATE service_provider_shop_details SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',image='"+filename+"', updated_date='"+date+"' WHERE shop_id='"+psm.getService_id()+"'";
+		//String query = "UPDATE service_provider_services SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',car_service='"+psm.getCar_service()+"',bike_service='"+psm.getBike_service()+"',image='"+filename+"',updated_date='"+date+"' WHERE service_id='"+psm.getService_id()+"'";
 		return template.update(query);
 	}
 	
 	public int UpdateServiceNoImg(ProviderServiceModel psm)
 	{
-		String query = "UPDATE service_provider_services SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',car_service='"+psm.getCar_service()+"',bike_service='"+psm.getBike_service()+"',updated_date='"+date+"' WHERE service_id='"+psm.getService_id()+"'";
+		String query = "UPDATE service_provider_shop_details SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',updated_date='"+date+"' WHERE shop_id='"+psm.getService_id()+"'";
+		//String query = "UPDATE service_provider_shop_details SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',car_service='"+psm.getCar_service()+"',bike_service='"+psm.getBike_service()+"',updated_date='"+date+"' WHERE service_id='"+psm.getService_id()+"'";
 		return template.update(query);
 	}
 	
+	public List<ProviderServiceModel> GetCarService(String id)
+	{
+		List<ProviderServiceModel> query = template.query("select * from service_provider_car_service where provider_id = '"+id+"'", new RowMapper<ProviderServiceModel>()
+				{
+					@Override
+					public ProviderServiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						ProviderServiceModel psm = new ProviderServiceModel();
+						psm.setService_id(rs.getString("service_id"));
+						psm.setProvider_id(rs.getString("provider_id"));
+						psm.setCar_service(rs.getString("car_service"));
+						psm.setUpdated_date(rs.getString("updated_date"));
+						return psm;
+					}
+				});
+		return query;
+	}
+
+	
+	public List<ProviderServiceModel> GetBikeService(String id)
+	{
+		List<ProviderServiceModel> query = template.query("select * from service_provider_bike_service where provider_id = '"+id+"'", new RowMapper<ProviderServiceModel>()
+				{
+					@Override
+					public ProviderServiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						
+						ProviderServiceModel psm = new ProviderServiceModel();
+						psm.setService_id(rs.getString("service_id"));
+						psm.setProvider_id(rs.getString("provider_id"));
+						psm.setBike_service(rs.getString("bike_service"));
+						psm.setUpdated_date(rs.getString("updated_date"));
+						return psm;
+					}
+			
+				});
+		return query;
+	}
+
+	public int UpdateCarService(String pid, String csid)
+	{
+		String query = "insert into service_provider_car_service (provider_id, car_service, updated_date)"+"values('"+pid+"','"+csid+"','"+date+"')";
+		return template.update(query);
+	}
+
+	public int UpdateBikeService(String pid, String bsid)
+	{
+		String query = "insert into service_provider_bike_service (provider_id, bike_service, updated_date)"+"values('"+pid+"','"+bsid+"','"+date+"')";
+		return template.update(query);
+	}
+
 	public int CreateMember(ProviderMemberModel pmm, String filename) 
 	{
 		String query = "insert into service_provider_team (provider_id, name, contact, email, address, image, created_date)"+"values('"+pmm.getProvider_id()+"','"+pmm.getName()+"','"+pmm.getContact()+"', '"+pmm.getEmail()+"', '"+pmm.getAddress()+"','"+filename+"','"+date+"')";

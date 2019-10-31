@@ -79,6 +79,46 @@ public class ProviderFunctionContrroller
 	
 	@RequestMapping(value="update_service_provider_services_no_img", method=RequestMethod.POST)
 	public String Update_service_provider_services_no_img(ProviderServiceModel psm){
+		String pid = psm.getProvider_id();
+		String car= psm.getCar_service();
+		String[] car_list = car.split(",");
+		String bike= psm.getBike_service();
+		String[] bike_list = bike.split(",");
+		
+		List<ProviderServiceModel> OldCarList = pudao.GetCarService(pid);
+		List<ProviderServiceModel> OldBikeList = pudao.GetBikeService(pid);
+		int cl =  OldCarList.size();
+		int bl =  OldBikeList.size();
+		String Cararray = "";
+		String Bikearray = "";
+		for(int i=0; i<cl; i++)
+		{
+			Cararray += OldCarList.get(i).getCar_service()+',';
+		}
+		
+		for(int j=0; j<bl; j++)
+		{
+			Bikearray += OldBikeList.get(j).getBike_service()+',';
+		}
+		
+		System.out.println("car old :" + Cararray);
+		System.out.println("Bike old:" + Bikearray);
+		
+		System.out.println("car new:" + car);
+		System.out.println("Bike new:" + bike);
+		
+		
+		for(int i=0; i<car_list.length; i++)
+		{
+			String csid = car_list[i];
+			pudao.UpdateCarService(pid,csid);
+		}
+		
+		for(int i=0; i<bike_list.length; i++)
+		{
+			String bsid = bike_list[i];
+			pudao.UpdateBikeService(pid,bsid);
+		}
 		
 		pudao.UpdateServiceNoImg(psm);
 		return "redirect:/provider_profile"; 
