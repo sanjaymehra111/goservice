@@ -85,10 +85,16 @@ public class ProviderUpdateDaoImpl {
 				});
 		return query;
 	}
-
+	
 	public int UpdateCarService(String pid, String csid)
 	{
 		String query = "insert into service_provider_car_service (provider_id, car_service, updated_date)"+"values('"+pid+"','"+csid+"','"+date+"')";
+		return template.update(query);
+	}
+	
+	public int DeleteCarService(String pid, String csid)
+	{
+		String query = "delete from service_provider_car_service where provider_id='"+pid+"' and car_service='"+csid+"'";
 		return template.update(query);
 	}
 
@@ -97,6 +103,13 @@ public class ProviderUpdateDaoImpl {
 		String query = "insert into service_provider_bike_service (provider_id, bike_service, updated_date)"+"values('"+pid+"','"+bsid+"','"+date+"')";
 		return template.update(query);
 	}
+	
+	public int DeleteBikeService(String pid, String bsid)
+	{
+		String query = "delete from service_provider_bike_service where provider_id='"+pid+"' and bike_service='"+bsid+"'";
+		return template.update(query);
+	}
+
 
 	public int CreateMember(ProviderMemberModel pmm, String filename) 
 	{

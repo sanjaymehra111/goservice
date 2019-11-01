@@ -3,7 +3,11 @@ package com.goservice.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -77,54 +81,114 @@ public class ProviderFunctionContrroller
 		
 	}
 	
+	
+	
+	
+	
 	@RequestMapping(value="update_service_provider_services_no_img", method=RequestMethod.POST)
 	public String Update_service_provider_services_no_img(ProviderServiceModel psm){
+		
 		String pid = psm.getProvider_id();
 		String car= psm.getCar_service();
-		String[] car_list = car.split(",");
 		String bike= psm.getBike_service();
-		String[] bike_list = bike.split(",");
 		
 		List<ProviderServiceModel> OldCarList = pudao.GetCarService(pid);
 		List<ProviderServiceModel> OldBikeList = pudao.GetBikeService(pid);
 		int cl =  OldCarList.size();
 		int bl =  OldBikeList.size();
-		String Cararray = "";
-		String Bikearray = "";
-		for(int i=0; i<cl; i++)
-		{
-			Cararray += OldCarList.get(i).getCar_service()+',';
+		String Cararray = "", Bikearray = "";
+		for(int i=0; i<cl; i++){Cararray += OldCarList.get(i).getCar_service()+',';}
+		for(int j=0; j<bl; j++){Bikearray += OldBikeList.get(j).getBike_service()+',';}
+			
+		
+		String[] old_car_list =  Cararray.split(",");
+		String[] old_bike_list =  Bikearray.split(",");
+		String[] car_list = car.split(",");
+		String[] bike_list = bike.split(",");
+		
+		List<String> oldCarList= new ArrayList<>(),newCarList = new ArrayList<>();
+		List<String> oldBikeList = new ArrayList<>(), newBikeList = new ArrayList<>();
+		
+		for(String carServiceId : old_car_list) {
+			if(!oldCarList.contains(carServiceId))
+				oldCarList.add(carServiceId);
 		}
 		
-		for(int j=0; j<bl; j++)
-		{
-			Bikearray += OldBikeList.get(j).getBike_service()+',';
+		for(String bikeServiceId : old_bike_list) {
+			if(!oldBikeList.contains(bikeServiceId))
+			oldBikeList.add(bikeServiceId);
 		}
 		
-		System.out.println("car old :" + Cararray);
+		//oldCarList.forEach(System.out::print);
+		for(String carId : car_list) {
+			newCarList.add(carId);
+		}
+		
+		for(String BikeId : bike_list) {
+			newBikeList.add(BikeId);
+		}
+			
+		List<String> tempList = new ArrayList<>(); 
+		tempList.addAll(newCarList);
+		
+		List<String> tempList1 = new ArrayList<>();
+		tempList1.addAll(newBikeList);
+		
+		newCarList.removeAll(oldCarList); //contains ids for adding
+		oldCarList.removeAll(tempList); //contains ids for removing
+		
+		newBikeList.removeAll(oldBikeList);
+		oldBikeList.removeAll(tempList1);
+		
+		System.out.print("-----to car add ---");
+		newCarList.forEach(System.out::println); //for adding into db
+		System.out.print("-----to car remove ---");
+		oldCarList.forEach(System.out::println); // for removing from db isme jo ayga wo sare delete honge
+		
+		System.out.println("-----to bike add ---");
+		newBikeList.forEach(System.out::println); //for adding into db
+		System.out.print("-----to bike remove ---");
+		oldBikeList.forEach(System.out::println); // for removing from db isme jo ayga wo sare delete honge
+		
+		
+		/*System.out.println("car old :" + Cararray);
 		System.out.println("Bike old:" + Bikearray);
-		
 		System.out.println("car new:" + car);
-		System.out.println("Bike new:" + bike);
+		System.out.println("Bike new:" + bike);*/
 		
-		
-		for(int i=0; i<car_list.length; i++)
+		for(int i=0; i<newCarList.size(); i++) //Add Car Servicess
 		{
-			String csid = car_list[i];
-			pudao.UpdateCarService(pid,csid);
+			if(!newCarList.contains(""))
+			pudao.UpdateCarService(pid,newCarList.get(i));;
 		}
 		
-		for(int i=0; i<bike_list.length; i++)
+		for(int i=0; i<oldCarList.size(); i++) //Delet Car Servicess
 		{
-			String bsid = bike_list[i];
-			pudao.UpdateBikeService(pid,bsid);
+			if(!oldCarList.contains(""))
+			pudao.DeleteCarService(pid,oldCarList.get(i));
 		}
+		
+		for(int i=0; i<newBikeList.size(); i++) //Add Bike Servicess
+		{
+			if(!newBikeList.contains(""))
+			pudao.UpdateBikeService(pid,newBikeList.get(i));
+		}
+		
+		for(int i=0; i<oldBikeList.size(); i++) //Delet Bike Servicess
+		{
+			if(!oldBikeList.contains(""))
+			pudao.DeleteBikeService(pid,oldBikeList.get(i));
+		}
+		
+		
 		
 		pudao.UpdateServiceNoImg(psm);
 		return "redirect:/provider_profile"; 
 		
 	}
 	
+
+		 
 	@RequestMapping(value="create_service_provider_members", method=RequestMethod.POST)
 	public String Create_service_provider_members(ProviderMemberModel pmm,  @RequestParam CommonsMultipartFile file, HttpSession session)throws Exception {
 		
