@@ -25,26 +25,26 @@ public class ProviderUpdateDaoImpl {
 	
 	public int UpdateProfile(ProviderProfileModel ppm, String filename)
 	{
-		String query = "UPDATE service_provider_profile SET name='"+ppm.getName()+"', contact='"+ppm.getContact()+"', email='"+ppm.getEmail()+"',shop_name='"+ppm.getShop_name()+"',address='"+ppm.getAddress()+"',image='"+filename+"',updated_date='"+date+"' WHERE id='"+ppm.getId()+"'";
+		String query = "UPDATE service_provider_profile SET name='"+ppm.getName()+"', contact='"+ppm.getContact()+"', email='"+ppm.getEmail()+"',shop_name='"+ppm.getShop_name()+"',address='"+ppm.getAddress()+"',image='"+filename+"',updated_date='"+date+"' WHERE id='"+ppm.getProvider_id()+"'";
 		return template.update(query);
 	}
 	
 	public int UpdateProfileNoImg(ProviderProfileModel ppm)
 	{
-		String query = "UPDATE service_provider_profile SET name='"+ppm.getName()+"', contact='"+ppm.getContact()+"', email='"+ppm.getEmail()+"',shop_name='"+ppm.getShop_name()+"',address='"+ppm.getAddress()+"', updated_date='"+date+"' WHERE id='"+ppm.getId()+"'";
+		String query = "UPDATE service_provider_profile SET name='"+ppm.getName()+"', contact='"+ppm.getContact()+"', email='"+ppm.getEmail()+"',shop_name='"+ppm.getShop_name()+"',address='"+ppm.getAddress()+"', updated_date='"+date+"' WHERE id='"+ppm.getProvider_id()+"'";
 		return template.update(query);
 	}
 	
-	public int UpdateService(ProviderServiceModel psm, String filename)
+	public int UpdateShopDetails(ProviderServiceModel psm, String filename)
 	{
-		String query = "UPDATE service_provider_shop_details SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',image='"+filename+"', updated_date='"+date+"' WHERE shop_id='"+psm.getService_id()+"'";
+		String query = "UPDATE service_provider_shop_details SET shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',image='"+filename+"', updated_date='"+date+"' WHERE provider_id='"+psm.getProvider_id()+"'";
 		//String query = "UPDATE service_provider_services SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',car_service='"+psm.getCar_service()+"',bike_service='"+psm.getBike_service()+"',image='"+filename+"',updated_date='"+date+"' WHERE service_id='"+psm.getService_id()+"'";
 		return template.update(query);
 	}
 	
-	public int UpdateServiceNoImg(ProviderServiceModel psm)
+	public int UpdateShopDetailsNoImg(ProviderServiceModel psm)
 	{
-		String query = "UPDATE service_provider_shop_details SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',updated_date='"+date+"' WHERE shop_id='"+psm.getService_id()+"'";
+		String query = "UPDATE service_provider_shop_details SET shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',latitude='"+psm.getLatitude()+"', longitude='"+psm.getLongitude()+"', updated_date='"+date+"' WHERE provider_id='"+psm.getProvider_id()+"'";
 		//String query = "UPDATE service_provider_shop_details SET provider_id='"+psm.getProvider_id()+"', shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',car_service='"+psm.getCar_service()+"',bike_service='"+psm.getBike_service()+"',updated_date='"+date+"' WHERE service_id='"+psm.getService_id()+"'";
 		return template.update(query);
 	}
@@ -187,6 +187,31 @@ public class ProviderUpdateDaoImpl {
 		String query = "UPDATE service_provider_team SET name='"+pmm.getName()+"', contact='"+pmm.getContact()+"', email='"+pmm.getEmail()+"', address='"+pmm.getAddress()+"', updated_date='"+date+"' WHERE team_member_id='"+pmm.getTeam_member_id()+"'";
 		return template.update(query);
 	}
+
 	
+	public List<ProviderServiceModel> GetShopDetails(String id)
+	{
+		List<ProviderServiceModel> query = template.query("select * from service_provider_shop_details where provider_id = '"+id+"'", new RowMapper<ProviderServiceModel>()
+				{
+					@Override
+					public ProviderServiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						ProviderServiceModel psm = new ProviderServiceModel();
+						psm.setShop_id(rs.getString("shop_id"));
+						psm.setProvider_id(rs.getString("provider_id"));
+						psm.setShop_name(rs.getString("shop_name"));
+						psm.setContact(rs.getString("contact"));
+						psm.setEmail(rs.getString("email"));
+						psm.setAddress(rs.getString("address"));
+						psm.setImage(rs.getString("image"));
+						psm.setLatitude(rs.getString("latitude"));
+						psm.setLongitude(rs.getString("longitude"));
+						psm.setCreated_date(rs.getString("created_date"));
+						
+						return psm;
+					}
+				});
+		return query;
+	}
+
 	
 }

@@ -19,6 +19,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.5/slick.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.9/slick-theme.min.css">
 
+<!--For Webpage Logo-->
+<link rel="shortcut icon" href="/goservice/files/images/logo3-plane.png">
 
 
 
@@ -169,21 +171,130 @@ $(function login_sigup_section(){
             <br><br>
 
             <div class="user_login_section">
-                <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Partner Login</p><br>
-                <input type="text" maxlength="30" class="user_log_id form-text1" placeholder="User Id"><br><br>
-                <input type="password" maxlength="30" class="user_log_password form-text1" placeholder="Password">
+                <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Become A Partner</p><br>
+                <input type="text" maxlength="50" class="user_log_email form-text1" placeholder="User Email"><br><br>
+                <input type="password" maxlength="50" class="user_log_password form-text1" placeholder="Password">
                 <br><br><br>
                 <p style="float: right; margin-right: 10%;  font-size: 15px;"><a href="#" style="text-decoration: none;  color: rgba(255, 255, 255, 0.767)">Forgot Password ?</a></p><br><br>
                 <button type="submit" class="user-login-button1 user_submit_button1">LOG IN</button>
                 <br><br><br><br><br>
             </div>
 
+<script>
+$(function(){
+	
+	$(".user_contact").keypress(function(e)
+		{if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+		return false; else return true;})
+		
+		$(".user-login-button1").click(function(){
+			var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			var email = $(".user_log_email").val();
+			var password = $(".user_log_password").val();
+			
+			if(email == null ||  email== "" || !email.match(valid_email))
+			{
+				$(".user_log_email").css({"border":"solid 2px red"});
+			}
+			
+			else if(password == null ||  password== "" || password.length <6)
+			{
+				$(".user_log_email").css({"border":"solid 0.5px black"});
+				$(".user_log_password").css({"border":"solid 2px red"});
+			}
+			
+			else
+			{
+				$(".user_log_email").css({"border":"solid 0.5px black"});
+				$(".user_log_password").css({"border":"solid 0.5px black"});
+				
+				signup(email, password);
+			}
+			
+			function signup(email, password)
+			{
+				$.ajax({
+					url:"service_provider_signup",
+					data :{email:email, password:password},
+					contentType: false,
+			 	  	type: 'get',    
+				 	success:function(data){
+				 		window.location.href="service_provider_dashboard";	
+				 		},
+					error:function(error){alert("Incorrect Id Password")},
+					}) 
+			}
+				
+				
+		})
+	
+	$(".user-signup-button1").click(function(){
+		var name = $(".user_id").val();
+		var email = $(".user_email").val();
+		var password = $(".user_password").val();
+		var contact = $(".user_contact").val();
+		var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		
+		
+		if(name == null ||  name == "")
+		{
+			$(".user_id").css({"border":"solid 2px red"});
+		}
+		
+		else if(contact == null ||  contact== "" || contact.length!=10)
+		{
+			$(".user_id").css({"border":"solid 0.5px black"});
+			$(".user_contact").css({"border":"solid 2px red"});
+		}
+		
+		else if(email == null ||  email== "" || !email.match(valid_email))
+		{
+			$(".user_id").css({"border":"solid 0.5px black"});
+			$(".user_contact").css({"border":"solid 0.5px black"});
+			$(".user_email").css({"border":"solid 2px red"});
+		}
+		
+		else if(password == null ||  password== "" || password.length <6)
+		{
+			$(".user_id").css({"border":"solid 0.5px black"});
+			$(".user_contact").css({"border":"solid 0.5px black"});
+			$(".user_email").css({"border":"solid 0.5px black"});
+			$(".user_password").css({"border":"solid 2px red"});
+		}
+		
+		else
+		{
+			$(".user_id").css({"border":"solid 0.5px black"});
+			$(".user_email").css({"border":"solid 0.5px black"});
+			$(".user_password").css({"border":"solid 0.5px black"});
+			$(".user_contact").css({"border":"solid 0.5px black"});
+			
+			signin(name, contact, email, password);
+		}
+		
+		function signin(name, contact, email, password)
+		{
+		 $.ajax({
+			url:"service_provider_signin",
+			data :{name:name, contact:contact, email:email, password:password},
+			contentType: false,
+	 	  	type: 'get',    
+		 	success:function(data){
+		 		window.location.href="service_provider_dashboard";	
+		 		},
+			error:function(error){alert("error")},
+			}) 
+		}
+	})
+})
+</script>
+
             <div class="user_signup_section" style="display: none">
                 <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Sign Up for Free</p><br>
-                <input type="text" maxlength="30" class="user_id form-text1" placeholder="Name"><br><br>
-                <input type="email" maxlength="30" class="user_email form-text1" placeholder="Email"><br><br>
-                <input type="password" maxlength="30" class="user_password form-text1" placeholder="Password"><br><br>
-                <input type="text" maxlength="10" class="user_contact form-text1" placeholder="Contact">                
+                <input type="text" maxlength="50" class="user_id form-text1" placeholder="Name"><br><br>
+                <input type="text" maxlength="10" class="user_contact form-text1" placeholder="Contact"><br><br>          
+                <input type="email" maxlength="50" class="user_email form-text1" placeholder="Email ID"><br><br>
+                <input type="password" maxlength="50" class="user_password form-text1" placeholder="Password">
                 <br><br><br><br>    
                 <button type="submit" class="user-signup-button1 user_submit_button1">SIGN UP</button>
                 <br><br><br><br><br>

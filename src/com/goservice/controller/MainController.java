@@ -2,15 +2,22 @@ package com.goservice.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.goservice.dao.AdminServiceDaoImpl;
+import com.goservice.dao.ProviderProfileDaoIpml;
 import com.goservice.dao.ProviderShopDaoImpl;
+import com.goservice.model.ProviderProfileModel;
 import com.goservice.model.ProviderShopModel;
+import com.goservice.model.SessionModel;
 
 
 @Controller
@@ -18,8 +25,12 @@ public class MainController {
 
 @Autowired
 ProviderShopDaoImpl psdao;
+
 @Autowired
 AdminServiceDaoImpl asdao;
+
+@Autowired
+ProviderProfileDaoIpml ppdao;
 
 	
 
@@ -110,9 +121,30 @@ AdminServiceDaoImpl asdao;
 	}
 
 	@RequestMapping("service_provider_dashboard")
-	public String Service_Provider_dashboard()
+	public String Service_Provider_dashboard(HttpSession session, Model model, @ModelAttribute ("provider_id") String pid)
 	{
-		return "service_provider/provider_dashboard";
+		SessionModel sessionModel = (SessionModel) session.getAttribute("sessionData");
+		System.out.println("provider id: " + pid);
+		System.out.println("Session Data: " + sessionModel);
+		if(!pid.equals("")){
+			
+			List<ProviderProfileModel> data = ppdao.Provider_details(sessionModel.getUser_id());
+			model.addAttribute("data", data);
+			return "service_provider/provider_dashboard";
+		}
+		else
+		{
+			if(sessionModel!=null)
+			{
+				List<ProviderProfileModel> data = ppdao.Provider_details(sessionModel.getUser_id());
+				model.addAttribute("data", data);
+				return "service_provider/provider_dashboard";
+			}
+			else
+			{
+				return "redirect:/index";
+			}
+		}
 	}
 
 	@RequestMapping("user_dashboard")
@@ -245,6 +277,12 @@ AdminServiceDaoImpl asdao;
 	public String Provider_create_service()
 	{
 		return "service_provider/provider_create_service";
+	}
+
+	@RequestMapping("provider_create_shop")
+	public String Provider_create_shop()
+	{
+		return "service_provider/provider_create_shop";
 	}
 
 	

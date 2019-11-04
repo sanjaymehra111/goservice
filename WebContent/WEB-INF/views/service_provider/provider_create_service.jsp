@@ -158,46 +158,8 @@
     </style>
     
     
-    <script>
+<!-- Getting All car And bike Services -->
 
-    $(function(){
-      $(".text_field2").focus(function(){
-        $(".fa_text_fonts11").css({"color":"#6f6486"});
-        $(this).prev(".fa_text_fonts1").css({"color":"rgb(9, 156, 156)"});
-      })
-    })
-
-
-    $(function(){
-        $(".camera_icon2").click(function(){
-          $(".user_service1").click();
-        });
-
-
-        $(".user_service1").change(function() {
-          readURL(this);
-        });
-
-        function readURL(input) {
-          if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            
-            reader.onload = function(e) {
-              $('.service_shop_image').attr('src', e.target.result);
-            }
-            
-            reader.readAsDataURL(input.files[0]);
-          }
-        }
-    });
-
-    // document.getElementById('output').innerHTML = location.search;
-    // $(".chosen-select").chosen();
-
-  
-    
-    </script>
-  
    <script>  
     
     $(function GetCarDetails(){
@@ -213,15 +175,15 @@
     				    	text1+='<div style="text-align: center;"> ';
     				    	text1+='<div class="service-fix-height">';
     				    	text1+='<input readonly type="text" class="car_service_id hide">';
-    				    	text1+='<input readonly type="text" class="car_data1" placeholder="Select Car Service">';
+    				    	text1+='<input readonly type="text" class="car_data1" placeholder="Nothing Selected">';
     				    	text1+='<div class="car_service_list">';
     				    	text1+='<br>';
     				    		for(i=0; i<data1.length; i++)
     				    		{
     				    			text1+='<label class="service-container">'+data1[i].maker+','+data1[i].model+','+data1[i].service;
-    				    			text1+='<input class="car_check_box" id='+''+data1[i].id+' value="'+data1[i].maker+' '+data1[i].model+' '+data1[i].service+'"type="checkbox">';
+    				    			text1+='<input class="car_check_box car_id'+''+data1[i].id+'" sid='+''+data1[i].id+' value="'+data1[i].maker+' '+data1[i].model+' '+data1[i].service+'"type="checkbox">';
     				    			text1+='<span class="checkmark"></span>';
-    				    			text1+='<div style="float: right">'+data1[i].charges+'</div>';
+    				    			text1+='<div style="float: right"> &#8377; '+data1[i].charges+'</div>';
     				    			text1+='</label>';
     				    		}
     				    		//text1+='<option>' +data1[i].maker+ '&nbsp;'+data1[i].model+'&nbsp;'+data1[i].service+'&nbsp;(&nbsp; &#8377 '+data1[i].charges+' &nbsp;) </option>';
@@ -239,10 +201,8 @@
 	    						var ids=[];
 	    						$.each($(".car_check_box:checked"), function(){
 	    						data.push($(this).val());
-	    						id.push($(this).attr("id"));
+	    						id.push($(this).attr("sid"));
 	    						})
-	    						console.log(data);
-	    						console.log(id);
 	    						for(var i=0; i<data.length; i++)
 	    						{
 	    							datas[i] = data[i] +"";
@@ -273,15 +233,15 @@
         				text+='<div style="text-align: center;"> ';
 				    	text+='<div class="service-fix-height">';
 				    	text+='<input readonly type="text" class="bike_service_id hide">';
-				    	text+='<input readonly type="text" class="bike_data1" placeholder="Select Bike Service">';
+				    	text+='<input readonly type="text" class="bike_data1" placeholder="Nothing Selected">';
 				    	text+='<div class="bike_service_list">';
 				    	text+='<br>';
 				    		for(i=0; i<data.length; i++)
 				    		{
 				    			text+='<label class="service-container">'+data[i].maker+','+data[i].model+','+data[i].service;
-				    			text+='<input class="bike_check_box" id='+''+data[i].id+' value="'+data[i].maker+' '+data[i].model+' '+data[i].service+'"type="checkbox">';
+				    			text+='<input class="bike_check_box bike_id'+''+data[i].id+'" sid='+''+data[i].id+' value="'+data[i].maker+' '+data[i].model+' '+data[i].service+'"type="checkbox">';
 				    			text+='<span class="checkmark"></span>';
-				    			text+='<div style="float: right">'+data[i].charges+'</div>';
+				    			text+='<div style="float: right"> &#8377; '+data[i].charges+'</div>';
 				    			text+='</label>';
 				    		}
     				    text+='</div>';
@@ -299,11 +259,9 @@
     						var ids=[];
     						$.each($(".bike_check_box:checked"), function(){
     						data.push($(this).val());
-    						id.push($(this).attr("id"));
+    						id.push($(this).attr("sid"));
     						})
-    						console.log(data);
-    						console.log(id);
-	    						for(var i=0; i<data.length; i++)
+    							for(var i=0; i<data.length; i++)
 	    						{
 	    							datas[i] = data[i] +"";
 	    							ids[i] = id[i] +"";
@@ -312,7 +270,31 @@
     						$(".bike_service_id").val(ids	);
     						})
     					})
-    	    					
+
+	<!-- Getting Provider Previous Services -->
+    	    			
+					    	$.ajax({
+					    		
+							url:"provider_get_car_bike_service",
+							data:{id:$("#provider_id").val()},
+							contentType:"json",
+							dataType:"json",
+							success:function(data){
+									var car =data[0];
+									var bike =data[1];
+									
+					 				for(var i=0; i<car.length; i++)
+										{
+					 						$('.car_id'+car[i].car_service+'').click();
+					 					}
+					 				
+									for(var j=0; j<bike.length; j++)
+										{
+											$('.bike_id'+bike[j].bike_service+'').click();
+										}
+								},
+							error:function(error){console.log("error" +error)},
+						})
         		},
         		error:function(){alert("error")}
         	})
@@ -326,37 +308,25 @@
             
 </script>
 
- 
+
+
+<!-- Update car And bike Services -->
+
  <script>
 $(function(){
 $(".service_save_button2").click(function()
 		{
-		    //var data1 = $(".car_servicec_list .filter-option-inner-inner").html().replace(/ *\([^)]*\) */g, "");
-    		//var data2 = $(".bike_servicec_list .filter-option-inner-inner").html().replace(/ *\([^)]*\) */g, "");
-			
-			var data1 = $(".car_service_id").val()
+		    var data1 = $(".car_service_id").val()
 			var data2 = $(".bike_service_id").val()
-    		
-			var data = new FormData();
-			var url = "";
+    		var data = new FormData();
+			var url = "update_provider_services";	
 			
-			var u_imgl = $(".service_shop_image").attr('src').length;
-			 if(u_imgl  < 1000)
-			 	{var url = "update_service_provider_services_no_img";}	
-			else
-				{var url = "update_service_provider_services";}
-		
-			data.append("shop_name", $("#provider_shop").val());
-			data.append("contact", $("#provider_contact").val());
-			data.append("email", $("#provider_email").val());
-			data.append("address", $("#provider_address").val());
 			data.append("car_service", data1);
 			data.append("bike_service", data2);
 			data.append("service_id", $("#service_id").val());
 			data.append("provider_id", $("#provider_id").val());
-			data.append("file", $(".user_service1")[0].files[0]);
-			console.log(data);
-		    $.ajax({
+			
+			$.ajax({
 				 	url:url,
 				 	data: data,
 			 		enctype: 'multipart/form-data',
@@ -372,33 +342,16 @@ $(".service_save_button2").click(function()
 })	
 </script>
     
+    
+    
         <div class="col-md-1"></div>
         <div class="col-md-10">
         <div class="test-1">  <br><br>
-          <div class="col-md-6">
-          <center><img src="/goservice/files/service_provider_images/shop1.jpg" class="service_shop_image"></center>
-          <img src="/goservice/files/service_provider_images/camera_icon1.png" class="camera_icon2">
-          <input type="file" multiple="multiple" class="user_service1 hide" accept="image/*">
-          <br><br>
-          </div>
-
-			<div class="col-md-5" style="text-align: center;">
+          <div class="col-md-5" style="text-align: center;">
 			<br>
-            <i class="fa fa-home fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_name" class="text_field2" id="provider_shop" placeholder="Shop Name">
-            <br><br>
-            <i class="fa fa-phone fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_contact" class="text_field2" id="provider_contact" placeholder="Shop Contact">
-            <br><br>
-            <i class="fa fa-envelope fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="email" name="provider_shop_mail" class="text_field2" id="provider_email" placeholder="Shop Email">
-            <br><br>
-            <i class="fa fa-map-marker fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_address" class="text_field2" id="provider_address" placeholder="Shop Address">
-            <br><br>
             <input type="text" value="1" class="hidden" id="service_id">
             <input type="text" value="1" class="hidden" id="provider_id">
-</div>              
+		</div>              
 
 
 
@@ -503,39 +456,27 @@ $(".service_save_button2").click(function()
 						border:none;
 						border-bottom:solid 1px #2a2b3d;
 						}
+						.service_text1
+						{
+							text-align:center;
+							font-weight:bold;
+							font-size:16px;
+						}
 					</style>
 					           
-<style>
-.selectpicker
-{
-width: 95%;
-}
-.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) 
-{
-width: 100%;
-}
-.bs-placeholder, .dropdown-toggle
-{
-height: 40px;
-}
-
-</style>
-
-
 
 <div class="col-md-12">
-Select Car Services
+<div class="service_text1">Select Car Services</div>
 <div id="view_car_details">
 </div>
 <br><br>
 </div>
 
 <div class="col-md-12">
-Select Bike services
+<div class="service_text1">Select Bike Services</div>
 <div id="view_bike_details">
 </div>
-
-<br><br><br>
+<br><br>
 </div>              
 
             

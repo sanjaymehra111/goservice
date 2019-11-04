@@ -4,10 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.TreeSet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -18,13 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
+import com.goservice.dao.PasswordEncryptSha512;
+import com.goservice.dao.ProviderSignIn_UpDaoImple;
 import com.goservice.dao.ProviderUpdateDaoImpl;
 import com.goservice.model.ProviderMemberModel;
 import com.goservice.model.ProviderProfileModel;
 import com.goservice.model.ProviderServiceModel;
+import com.goservice.model.SessionModel;
 
 @Controller
 public class ProviderFunctionContrroller 
@@ -36,6 +38,52 @@ public class ProviderFunctionContrroller
 	@Autowired
 	ProviderUpdateDaoImpl pudao;
 	
+	@Autowired
+	ProviderSignIn_UpDaoImple psdao;
+	
+	@Autowired
+	PasswordEncryptSha512 pasenc;
+
+	@RequestMapping(value="service_provider_signin", method=RequestMethod.GET)
+	public String service_provider_signin(@RequestParam String name, String contact, String email, String password, HttpSession session, RedirectAttributes redirectAttributes)
+	{
+		String encpass = pasenc.PasswordEncrypt(password);
+		ProviderProfileModel pid = psdao.ProviderSignIn(name, contact, email, encpass);
+		SessionModel sessionModel = new SessionModel();
+		sessionModel.setUser_id(pid.getProvider_id());
+		sessionModel.setSession_id(session.getId());
+		sessionModel.setTime(session.getCreationTime());
+		session.setAttribute("sessionData", sessionModel);
+		redirectAttributes.addFlashAttribute("provider_id", pid.getProvider_id());
+		return "redirect:/service_provider_dashboard";
+	}
+	
+	@RequestMapping(value="service_provider_signup", method=RequestMethod.GET)
+	public String service_provider_signup(@RequestParam String email, String password, HttpSession session, RedirectAttributes redirectAttributes)
+	{
+		String encpass = pasenc.PasswordEncrypt(password);
+		List<ProviderProfileModel> data = psdao.ProviderSignUp(email, encpass);
+		
+		if(data != null	)
+		{
+			SessionModel sessionModel = new SessionModel();
+			sessionModel.setUser_id(data.get(0).getProvider_id());
+			sessionModel.setSession_id(session.getId());
+			sessionModel.setTime(session.getCreationTime());
+			session.setAttribute("sessionData", sessionModel);
+			redirectAttributes.addFlashAttribute("provider_id", data.get(0).getProvider_id());
+			System.out.println("main from controller calling");
+			return "redirect:/service_provider_dashboard";
+		}
+		
+		else
+		{
+			return "redirect:/service_provider_dashboard";
+		}			
+		
+	}
+	
+	
 	
 	@RequestMapping(value="update_service_provider_img", method=RequestMethod.POST)
 	public String Update_service_provider_img(ProviderProfileModel ppm,  @RequestParam CommonsMultipartFile file, HttpSession session)throws Exception {
@@ -44,7 +92,6 @@ public class ProviderFunctionContrroller
 		String path = context.getRealPath("/resources/service_provider_images/images/");
 		String filename= ucgdao.GetUniqueCode()+"-"+file.getOriginalFilename();
 		//String profile_path = path  + filename;
-		
 		byte[] bytes = file.getBytes();  
 		    BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(path + File.separator + filename)));  
 		    stream.write(bytes);  
@@ -62,31 +109,39 @@ public class ProviderFunctionContrroller
 	
 	
 
-	@RequestMapping(value="update_service_provider_services", method=RequestMethod.POST)
-	public String Update_service_provider_services(ProviderServiceModel psm,  @RequestParam CommonsMultipartFile file, HttpSession session)throws Exception {
-		
-		ServletContext context= session.getServletContext();
-		
-		String path = context.getRealPath("/resources/service_provider_images/images/");
-		String filename= ucgdao.GetUniqueCode()+"-"+file.getOriginalFilename();
-		//String profile_path = path  + filename;
-		
-		byte[] bytes = file.getBytes();  
-		    BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(path + File.separator + filename)));  
-		    stream.write(bytes);  
-		    stream.flush();  
-		    stream.close(); 
-		pudao.UpdateService(psm, filename);
+	@RequestMapping(value="update_service_provider_shop", method=RequestMethod.POST)
+	public String Update_service_provider_shop(ProviderServiceModel psm,  @RequestParam ArrayList<MultipartFile> file, HttpSession session)throws Exception {
+		int fs = file.size();
+		String images= "";
+		for(int i=0; i<fs; i++)
+		{
+			ServletContext context = session.getServletContext();
+			String path = context.getRealPath("/resources/service_provider_images/images/");
+			String[] filename= new String[fs];
+			filename[i] = ucgdao.GetUniqueCode()+"-"+file.get(i).getOriginalFilename();
+			images+=filename[i]+",";
+			
+			byte[] bytes=file.get(i).getBytes();
+			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File(path + File.separator + filename[i])));
+			stream.write(bytes);
+			stream.flush();
+			stream.close();
+					
+		}
+		pudao.UpdateShopDetails(psm, images);
 		return "redirect:/provider_profile"; 
 		
 	}
 	
+	@RequestMapping(value="update_service_provider_shop_no_img", method=RequestMethod.POST)
+	public String Update_service_provider_shop_no_img(ProviderServiceModel psm){
+		pudao.UpdateShopDetailsNoImg(psm);
+		return "redirect:/provider_profile"; 
+	}
 	
 	
-	
-	
-	@RequestMapping(value="update_service_provider_services_no_img", method=RequestMethod.POST)
-	public String Update_service_provider_services_no_img(ProviderServiceModel psm){
+	@RequestMapping(value="update_provider_services", method=RequestMethod.POST)
+	public String Update_provider_services(ProviderServiceModel psm){
 		
 		String pid = psm.getProvider_id();
 		String car= psm.getCar_service();
@@ -140,18 +195,15 @@ public class ProviderFunctionContrroller
 		newBikeList.removeAll(oldBikeList);
 		oldBikeList.removeAll(tempList1);
 		
-		System.out.print("-----to car add ---");
+		/*System.out.print("-----to car add ---");
 		newCarList.forEach(System.out::println); //for adding into db
 		System.out.print("-----to car remove ---");
 		oldCarList.forEach(System.out::println); // for removing from db isme jo ayga wo sare delete honge
-		
 		System.out.println("-----to bike add ---");
 		newBikeList.forEach(System.out::println); //for adding into db
 		System.out.print("-----to bike remove ---");
 		oldBikeList.forEach(System.out::println); // for removing from db isme jo ayga wo sare delete honge
-		
-		
-		/*System.out.println("car old :" + Cararray);
+		System.out.println("car old :" + Cararray);
 		System.out.println("Bike old:" + Bikearray);
 		System.out.println("car new:" + car);
 		System.out.println("Bike new:" + bike);*/
@@ -180,12 +232,12 @@ public class ProviderFunctionContrroller
 			pudao.DeleteBikeService(pid,oldBikeList.get(i));
 		}
 		
-		
-		
-		pudao.UpdateServiceNoImg(psm);
+		/*pudao.UpdateServiceNoImg(psm); */
 		return "redirect:/provider_profile"; 
 		
 	}
+	
+
 	
 
 		 
@@ -260,7 +312,35 @@ public class ProviderFunctionContrroller
 		return "redirect:/provider_profile"; 
 	}
 	
+	@ResponseBody
+	@RequestMapping("provider_get_car_bike_service")
+	public String Provider_get_car_service(@RequestParam String id)
+	{
+		Gson gson = new Gson();
+		List<ProviderServiceModel> car_service = pudao.GetCarService(id);
+		List<ProviderServiceModel> bike_service = pudao.GetBikeService(id);
+		String car_list = gson.toJson(car_service);
+		String bike_list = gson.toJson(bike_service);
+		String final_list = "["+car_list+","+bike_list+"]";
+		
+		return final_list ;
+	}
+	
+	@ResponseBody
+	@RequestMapping("view_service_shop_details")
+	public String View_service_shop_details(@RequestParam String id)
+	{
+		Gson gson = new Gson();
+		List<ProviderServiceModel> shop_details= pudao.GetShopDetails(id);
+		String shop_list = gson.toJson(shop_details);
+		return shop_list;
+	}
 	
 	
-	
+	@RequestMapping("/provider_logout")
+	public String provider_logout(HttpSession session)
+	{
+		session.invalidate();
+		return "redirect:/index";
+	}	
 }

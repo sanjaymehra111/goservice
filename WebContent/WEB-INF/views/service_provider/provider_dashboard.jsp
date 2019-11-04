@@ -13,10 +13,10 @@
 <!--For Webpage Logo-->
 <link rel="shortcut icon" href="/goservice/files/images/logo3-plane.png">
 
-<!--For Multiple Select-->
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
- --> 
+<!--For GeoLocaitgon-->
+<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyAa4ggTa-tkUQEW6Cv5_h8o-WOjiuboiOY&amp;libraries=places,geometry"></script>
+
+
 <style>
 
     * {
@@ -566,11 +566,12 @@
     
     $(function ImportPage(){
         $(".ImportPage").load("provider_home");
+        //location.reload();
         $(document).on("click",".import_provider", function(){
         var pn = $(this).attr("pagename");
         var tn = $(this).attr("textname");
         $(".pagename").html(tn);
-        var a = $(".ImportPage").load("provider_"+pn);
+        $(".ImportPage").load("provider_"+pn);
         //$(".provider_service").hide();
       });
 
@@ -612,6 +613,7 @@
 
         <li ><i class="fa fa-support fa-fw"></i><a> Our Service</a>
           <ul class="side-nav-dropdown">
+            <li class="import_provider hide_sidebar_button" pagename="create_shop" textname="Shop"><a>My Shop</a></li>
             <li class="import_provider hide_sidebar_button" pagename="create_service" textname="Service"><a>My Service</a></li>
             <!-- <li class="import_provider_service hide_sidebar_button" pagename="create_service" textname="Service"><a>My Service</a></li> -->
           </ul>
@@ -683,7 +685,7 @@
                   <li><a href="#"><i class="fa fa-envelope-o fw"></i> My inbox</a></li>
                   <li><a href="#"><i class="fa fa-question-circle-o fw"></i> Help</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="index"><i class="fa fa-sign-out"></i> Log out</a></li>
+                  <li><a href="provider_logout"><i class="fa fa-sign-out"></i> Log out</a></li>
                 </ul>
               </li>
               <li><a href="#"><i class="fa fa-comments"></i><span>23</span></a></li>
