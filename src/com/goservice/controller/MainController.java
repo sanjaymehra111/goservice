@@ -10,11 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.goservice.dao.AdminServiceDaoImpl;
 import com.goservice.dao.ProviderProfileDaoIpml;
 import com.goservice.dao.ProviderShopDaoImpl;
+import com.goservice.dao.ProviderUpdateDaoImpl;
 import com.goservice.model.ProviderProfileModel;
 import com.goservice.model.ProviderShopModel;
 import com.goservice.model.SessionModel;
@@ -32,6 +34,9 @@ AdminServiceDaoImpl asdao;
 @Autowired
 ProviderProfileDaoIpml ppdao;
 
+@Autowired
+ProviderUpdateDaoImpl pudao;
+
 	
 
 /****************** Header Link ******************/
@@ -45,7 +50,7 @@ ProviderProfileDaoIpml ppdao;
 	@RequestMapping("index")
 	public String IndexPage2()
 	{
-		return "index";
+		return "index"; 
 	}
 
 
@@ -124,8 +129,7 @@ ProviderProfileDaoIpml ppdao;
 	public String Service_Provider_dashboard(HttpSession session, Model model, @ModelAttribute ("provider_id") String pid)
 	{
 		SessionModel sessionModel = (SessionModel) session.getAttribute("sessionData");
-		System.out.println("provider id: " + pid);
-		System.out.println("Session Data: " + sessionModel);
+		//System.out.println("Session Data: " + sessionModel);
 		if(!pid.equals("")){
 			
 			List<ProviderProfileModel> data = ppdao.Provider_details(sessionModel.getUser_id());

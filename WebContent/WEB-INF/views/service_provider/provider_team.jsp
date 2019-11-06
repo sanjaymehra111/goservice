@@ -21,7 +21,7 @@
               box-shadow: 5px 5px 20px rgba(150, 150, 150, 0.308);
             }
             
-            .edit_member_image1, .user_image1
+            .edit_member_image1, .user_image1, .delete_member_img
             {
               height: 150px;
               width: 150px;
@@ -64,7 +64,7 @@
               transition: 0.3s;
             }
             
-            .profile_edit_button1, .team_edit_button1
+            .profile_edit_button1, .team_edit_button1, .profile_delete_button1
             {
               width: 45%;
               padding: 10px;
@@ -91,13 +91,13 @@
               background-color: rgba(255, 255, 255, 0.623);
             }
 
-            .profile_edit_button2:hover, .profile_cancel_button2:hover, .profile_save_button2:hover, .team_edit_button1:hover
+            .profile_edit_button2:hover, .profile_cancel_button2:hover, .profile_save_button2:hover, .team_edit_button1:hover, .profile_delete_button1:hover
             {
               background: #2a2b3d;
               box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.596);
             }
          
-             .profile_edit_button2:active, .profile_cancel_button2:active, .profile_save_button2:active, .team_edit_button1:active
+             .profile_edit_button2:active, .profile_cancel_button2:active, .profile_save_button2:active, .team_edit_button1:active, .profile_delete_button1:active
             {
               transition: 0.2s;
               transform: scale(0.98);
@@ -149,7 +149,7 @@
             	display: block;
             }
           
-              .profile_edit_button1
+              .profile_edit_button1, .profile_delete_button1
               {
                 width: 45%;
               }
@@ -273,7 +273,7 @@
 		    				text+='<div class="team_member_details" style="text-align: center;">';
 		    				text+='<div style="font-size: 22px; font-weight: bold; color: white;">'+data[i].name+'</div>';
 		    				text+='<div style="font-size: 15px;  color: white;">'+data[i].contact+'</div><br>';
-		    				text+='<button type="button" class="team_edit_button1" data-toggle="modal" value="'+data[i].team_member_id+'" data-target="#myModal">Edit</button>';
+		    				text+='<button type="button" class="team_edit_button1"  value="'+data[i].team_member_id+'" data-toggle="modal" data-target="#myModal">Edit</button>';
 		    				text+='</div>';
 		    				text+='<div class="container-fluid"></div>';
 		    				text+='<br>';
@@ -323,7 +323,6 @@
      
      $(function UppdateMemberDetails(){
     	 $(document).on('click','.profile_save_button2', function(){
-    		 
     		var data = new FormData();
  			var url = "";
  			var u_imgl = $(".edit_member_image1").attr('src').length;
@@ -336,8 +335,8 @@
  			
  			data.append("name", $(".edit_member_name").val());
  			data.append("contact", $(".edit_member_contact").val());
- 			data.append("email", $(".provider_email").val());
- 			data.append("mail", $(".edit_member_email").val());
+ 			//data.append("email", $(".provider_email").val());
+ 			data.append("email", $(".edit_member_email").val());
  			data.append("address", $(".edit_member_address").val());
  			data.append("team_member_id", $(".team_member_id").val());
  			data.append("file", $(".user_profile1")[0].files[0]);
@@ -363,7 +362,7 @@
   
         
 <div class="provider_team_members">
-<input type="text" value="1" class="provider_id hide">
+<input type="text" value="${sessionData.user_id}" class="provider_id hide">
 
 <div id="prrovider_team_members_details">
 </div>
@@ -372,6 +371,7 @@
 <div class="Edit_Member_Model">
 
             <!-- Modal -->
+            
   <div class="modal fade" id="myModal" role="dialog">
       <div class="modal-dialog">
       
@@ -384,7 +384,7 @@
           <div class="modal-body">
               <div class="col-md-12">
                   <div class="test-3"><br>
-                    <center><img src="/goservice/files/service_provider_images/user1.png" class="edit_member_image1"></center>
+                    <center><img src="" class="edit_member_image1"></center>
                     <img src="/goservice/files/service_provider_images/camera_icon1.png" class="camera_icon1">
                     <input type="file" class="user_profile1 hide">
                     <br><br>
@@ -392,20 +392,20 @@
                     <div class="col-md-10" style="text-align: center;">
               
                       <i class="fa fa-user fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="Sachin Maurya" name="provider_team_name" class="text_field5 edit_member_name" readonly>
+                      <input type="text" value="" name="provider_team_name" class="text_field5 edit_member_name" readonly>
 						<span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	               		<span class="spacea"><br><brr></span>
                       <i class="fa fa-phone fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="8447484748" name="provider_team_contact" class="text_field5 edit_member_contact" readonly>
+                      <input type="text" value="" name="provider_team_contact" class="text_field5 edit_member_contact" readonly>
                         
                       <br><br>
               
                       <i class="fa fa-envelope fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="Sachin111@gmail.com" name="provider_team_mail" class="text_field5 edit_member_email" readonly>
+                      <input type="text" value="" name="provider_team_mail" class="text_field5 edit_member_email" readonly>
        		              <span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	        	          <span class="spacea"><br><brr></span>
                       <i class="fa fa-map-marker fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="Uttam Nagar, New Delhi, India 110059" name="provider_team_address" class="text_field5 edit_member_address" readonly>
+                      <input type="text" value="" name="provider_team_address" class="text_field5 edit_member_address" readonly>
                       <input type="text" class="text_field5 team_member_id hide" readonly>
                       <br><br><br>
               
@@ -417,13 +417,11 @@
                     </div><br>
                   </div>
                   </div>  
-
                   <div class="container"></div>
-
-            
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          	<button type="button" class="profile_delete_button2 btn btn-danger" data-toggle="modal" data-target="#myDeleteModal" data-dismiss="modal">Delete</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
           </div>
         </div>
         
@@ -432,7 +430,63 @@
     
   </div>
 
+<script>
+$(function(){
+	$(".profile_delete_button2").click(function(){
+		//var img = $(this).closest(".src_head").find(".get_img").attr("src");
+		var name = $(this).closest(".modal-content").find(".edit_member_name").val();
+		var id = $(this).closest(".modal-content").find(".team_member_id").val();
+		var img = $(this).closest(".modal-content").find(".edit_member_image1").attr("src");
+		$(".delete_member_name").val(name);
+		$(".delete_member_id").val(id);
+		$(".delete_member_img").attr("src", img);	
+	})
 
+	$(".profile_delete_button1").click(function(){
+	$.ajax({
+		url:"delete_team_member",
+		data:{id:$(".delete_member_id").val()},
+		dataType:false,
+		contentType:"json",
+		success:function(){alert("success")},
+		error:function(){alert("error")},
+	})
+	})
+	
+	
+})
+</script>
+
+
+ <div class="modal fade" id="myDeleteModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 style="font-weight:bold; text-align:center" class="modal-title">Are You Sure You Want To Delete Team Member</h4>
+            
+          </div>
+          <div class="modal-body" style="text-align:center;">
+		    	<img src="" class="edit_member_image1 delete_member_img"><br><br>
+		    	<i class="fa fa-user fa_text_fonts fa_text_fonts1"></i>
+                <input type="text" value="" name="provider_team_name" class="text_field5 delete_member_name" readonly>
+                <input type="text" class="delete_member_id hide" readonly>
+                <br><br><br>
+		    	<button class="profile_delete_button1" type="button" style="background-color:#da2a2a">Delete</button>
+        	  <br><br>
+          <div class="container"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal">Not Now</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    
 
 </div>
 

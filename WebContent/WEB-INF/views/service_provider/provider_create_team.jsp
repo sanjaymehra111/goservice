@@ -263,7 +263,7 @@ $(".service_save_button3").click(function()
             <i class="fa fa-map-marker fa_text_fonts1 fa_text_fonts12"></i>
             <input type="text" name="provider_team_address" class="text_field3" id="member_address" placeholder="Team Member Address">
             <br><br>
-            <input type="text" value="1" class="hidden" id="provider_id">
+            <input type="text" value="${sessionData.user_id}" class="hide" id="provider_id">
             
 </div>              
   

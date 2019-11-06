@@ -63,10 +63,12 @@ public class ProviderSignIn_UpDaoImple {
 						ppm.setStatus(rs.getString("status"));
 						return ppm;
 					}
-			
 				}
 		);
-		return query;
+		if(query.size() > 0)
+			return query;
+		else
+			return null;
 	}
 
 

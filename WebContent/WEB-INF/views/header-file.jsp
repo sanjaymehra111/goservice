@@ -1,4 +1,6 @@
-
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <button class="caret-up"><i class="fa fa-caret-up"></i></button>
 
@@ -434,9 +436,14 @@
                         <a href="car-insurance" style="text-decoration: none"><div class="site-menu" style="width: 100%; text-align: left;">Car</div></a><br>
                         <a href="bike-insurance" style="text-decoration: none"><div class="site-menu" style="width: 100%; text-align: left">Bike</div></a><br>
                     </div>
-                    <a href="admin_dashboard" class="site-menu" style="text-decoration: none; ">Admin</a>
-                    <a href="service_provider_dashboard" class="site-menu" style="text-decoration: none; ">Partner</a>
-                    <a href="user_dashboard" class="site-menu" style="text-decoration: none; ">User</a>
+                    
+                    <c:if test="${fn:length(sessionData.user_id) != 0}">
+                     	<a href="service_provider_dashboard" class="site-menu" style="text-decoration: none; ">Dashboard</a> 
+                    </c:if> 
+                    
+                    <!-- <a href="admin_dashboard" class="site-menu" style="text-decoration: none; ">Admin</a>
+                    <a href="user_dashboard" class="site-menu" style="text-decoration: none; ">User</a> -->
+                    
                     <a href="login" class="site-menu" style="text-decoration: none; float: right;">Log In</a>
                  
             </div>

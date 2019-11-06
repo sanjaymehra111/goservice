@@ -323,7 +323,7 @@ $(".service_save_button2").click(function()
 			
 			data.append("car_service", data1);
 			data.append("bike_service", data2);
-			data.append("service_id", $("#service_id").val());
+			//data.append("service_id", $("#service_id").val());
 			data.append("provider_id", $("#provider_id").val());
 			
 			$.ajax({
@@ -349,8 +349,8 @@ $(".service_save_button2").click(function()
         <div class="test-1">  <br><br>
           <div class="col-md-5" style="text-align: center;">
 			<br>
-            <input type="text" value="1" class="hidden" id="service_id">
-            <input type="text" value="1" class="hidden" id="provider_id">
+            <!-- <input type="text" value="1" class="" id="service_id"> -->
+            <input type="text" value="${sessionData.user_id}" class="hide" id="provider_id">
 		</div>              
 
 

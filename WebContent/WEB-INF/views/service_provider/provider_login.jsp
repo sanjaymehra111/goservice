@@ -216,12 +216,25 @@ $(function(){
 				$.ajax({
 					url:"service_provider_signup",
 					data :{email:email, password:password},
-					contentType: false,
-			 	  	type: 'get',    
+					contentType: "text",
+					dataType:"text",
+			 	  	type: 'get',
 				 	success:function(data){
-				 		window.location.href="service_provider_dashboard";	
+				 		if (data == "status_closed")
+				 			{
+				 				alert("status closed");
+				 			}
+				 		else if (data == "incorrect_id_pwd")
+			 			{
+				 			alert("incorrect id and password");
+			 			}
+				 		else 
+			 			{
+			 				window.location.href="service_provider_dashboard";	
+			 			}
+				 			
 				 		},
-					error:function(error){alert("Incorrect Id Password")},
+						error:function(error){alert(error)},
 					}) 
 			}
 				

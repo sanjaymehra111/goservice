@@ -235,7 +235,27 @@
   
 <script>
 $(function(){
+	$.ajax({
+		url:"GetProviderProfile",
+		data:{id:$("#provider_id").val()},
+		dataType:"json",
+		contentType:"json",
+		type:"get",
+		success:function(data)
+		{
+			console.log(data);
+			$("#provider_name").val(data[0].name);
+			$("#provider_contact").val(data[0].contact);
+			$("#provider_email").val(data[0].email);
+			$("#provider_shop_name").val(data[0].shop_name);
+			$("#provider_address").val(data[0].address);
+			$(".user_image").attr('src', "/goservice/files/service_provider_images/images/"+data[0].image);
+			
+		},
+		error:function(error){alert("error"); console.log(error)},
+	})
 	
+/* Update Profile Details */
 
 $(".profile_save_button2").click(function()
 		{
@@ -254,7 +274,7 @@ $(".profile_save_button2").click(function()
 			data.append("email", $("#provider_email").val());
 			data.append("shop_name", $("#provider_shop_name").val());
 			data.append("address", $("#provider_address").val());
-			data.append("id", $("#provider_id").val());
+			data.append("provider_id", $("#provider_id").val());
 			data.append("file", $(".user_profile1")[0].files[0]);
 			console.log(data);
 		    $.ajax({
@@ -286,7 +306,7 @@ $(function(){
             <div class="col-md-1"></div>
             <div class="col-md-10">
             <div class="test-1">  <br><br>
-              <center><img src="/goservice/files/service_provider_images/user1.png" class="user_image"></center>
+              <center><img src="" class="user_image"></center>
               <img src="/goservice/files/service_provider_images/camera_icon1.png" class="camera_icon1">
               
               <input type="file" class="user_profile1 hide" accept="image/png, image/jpeg">
@@ -295,31 +315,31 @@ $(function(){
               <div class="col-md-10" style="text-align: center;">
         
                 <i class="fa fa-user fa_text_fonts fa_text_fonts1"></i>
-                <input type="text" value="Sachin Maurya" name="provider_name" class="text_field1" id="provider_name" placeholder="Provider Name" readonly>
+                <input type="text" value="" name="provider_name" class="text_field1" maxlength="50" id="provider_name" placeholder="Provider Name" readonly>
                   
                   <span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <span class="spacea"><br><brr></span>
                   
                 <i class="fa fa-phone fa_text_fonts fa_text_fonts1"></i>
-                <input type="text" value="8447484748" name="provider_contact" class="text_field1" id="provider_contact" placeholder="Provider Contact" readonly>
+                <input type="number" value="" name="provider_contact" class="text_field1" maxlength="10" id="provider_contact" placeholder="Provider Contact" readonly>
                   
                 <br><br>
         
                 <i class="fa fa-envelope fa_text_fonts fa_text_fonts1"></i>
-                <input type="text" value="Sachin111@gmail.com" name="provider_mail" class="text_field1"  id="provider_email" placeholder="Provider Email"readonly>
+                <input type="text" value="" name="provider_mail" class="text_field1" maxlength="50"  id="provider_email" placeholder="Provider Email"readonly>
                   
                   <span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <span class="spacea"><br><brr></span>
                   
                 <i class="fa fa-home fa_text_fonts fa_text_fonts1"></i>
-                <input type="text" value="Go Service Pvt. Ltd." name="provider_store_name" class="text_field1" id="provider_shop_name" placeholder="Provider Store Name" readonly>
+                <input type="text" value="" name="provider_store_name" class="text_field1" maxlength="100" id="provider_shop_name" placeholder="Provider Store Name" readonly>
                   
                 <br><br>
               
                 <i class="fa fa-map-marker fa_text_fonts fa_text_fonts1"></i>
-                <input type="text" value="Uttam Nagar, New Delhi, India 110059" name="provider_address" class="text_field1 provider_address1" id="provider_address"  placeholder="Provider Address" readonly>
+                <input type="text" value="" name="provider_address" class="text_field1 provider_address1" maxlength="200" id="provider_address"  placeholder="Provider Address" readonly>
                 <br><br><br>
-        		<input type="text" value="1" class="hidden" id="provider_id">
+        		<input type="text" value="${sessionData.user_id}" class="hide" id="provider_id">
         		<button class="profile_edit_button1 profile_edit_button2">Edit</button>
                 <div class="profile_buttons" style="display: none;">
                     <button class="profile_edit_button1 profile_cancel_button2">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;

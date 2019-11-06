@@ -1,19 +1,3 @@
-<html lang="en">
-  <head>
-<!-- Bootstrap -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-
-<!-- Font Awesome-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<!--For Webpage Logo-->
-<link rel="shortcut icon" href="/goservice/files/images/logo3-plane.png">
-
-</head>
 
 <div class="provider_service">
     
@@ -231,13 +215,21 @@
 	 	contentType:"json",
 		dataType:"json",
 		success:function(data){
-			var img = data[0].image.split(",");
-			var item2="";
-			for(var i=0; i<img.length-1; i++)
+			console.log(data);
+			var imgl = data[0].image.length;
+			console.log(data[0].image)
+			console.log(imgl)
+			if(imgl > 5	)
 				{
-					item2+='<img src="/goservice/files/service_provider_images/images/'+img[i]+'" data-toggle="modal" data-target="#myImageModel" class="shop_images_style close_zoom_style"> ';
+					var img = data[0].image.split(",");
+					var item2="";
+					for(var i=0; i<img.length-1; i++)
+						{
+							item2+='<img src="/goservice/files/service_provider_images/images/'+img[i]+'" data-toggle="modal" data-target="#myImageModel" class="shop_images_style close_zoom_style"> ';
+						}
+					$(".shop_gallery").html(item2);
 				}
-			$(".shop_gallery").html(item2);
+			
 			$("#provider_shop").val(data[0].shop_name);
 			$("#provider_contact").val(data[0].contact);
 			$("#provider_email").val(data[0].email);
@@ -304,10 +296,14 @@ $(".service_save_button2").click(function()
 
 /* <!-- Select Gmap Shop Address --> */
 
-
-
+LoadAddressmain();
 
 document.getElementById("location_get").onclick = function LoadAddress()
+{
+	LoadAddressmain();
+}
+
+function LoadAddressmain()
 {
 	if(navigator.geolocation)
 	    navigator.geolocation.getCurrentPosition(function(position){
@@ -316,8 +312,6 @@ document.getElementById("location_get").onclick = function LoadAddress()
 		LoadGoogleAddress(lat, lng);
     });
 }
-
-
 
 		function LoadGoogleAddress(latdb, logdb){
         	$("#googleMap").css({"height":"250", "width":"100%"});
@@ -459,8 +453,9 @@ width:auto;
           <div class="col-md-12" style="text-align:center">
           <!-- <center><img src="/goservice/files/service_provider_images/shop1.jpg" class="service_shop_image"></center> -->
           <input type="file" id="gallery-photo-add" multiple="multiple" class="user_service1 hide" accept="image/*">
-          
-          <div class="shop_gallery" style="text-align:center"></div><br>
+          <div class="shop_gallery" style="text-align:center">
+          <span class="shop_images_style hide" src=""></span>
+          </div><br>
           <img src="/goservice/files/service_provider_images/upload1.png" class="camera_icon2">
           <br><br>
           </div>
@@ -485,8 +480,8 @@ width:auto;
 	        <br>
 	        <div id="googleMap"></div>
         
-     
-            <input type="text" value="1" class="hidden" id="provider_id">
+            <input type="text" value="${sessionData.user_id}" class="" id="provider_id">	
+            
 <br><br>
 </div>              
           <div class="col-md-12" style="text-align: center;">
@@ -528,4 +523,3 @@ width:auto;
 
 
 
-</html>

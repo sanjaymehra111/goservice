@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix= "fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <html lang="en">
   <head>
 <!-- Bootstrap -->
@@ -561,41 +565,54 @@
     
     </script>
     
-    <script>
+    
+<!-- left side header -->
+    
+<script>
     
     
     $(function ImportPage(){
         $(".ImportPage").load("provider_home");
         //location.reload();
+        
         $(document).on("click",".import_provider", function(){
+        //$(".ImportPage").load(location.href + " .ImportPage>*", "");
+        	
         var pn = $(this).attr("pagename");
         var tn = $(this).attr("textname");
         $(".pagename").html(tn);
         $(".ImportPage").load("provider_"+pn);
-        //$(".provider_service").hide();
+        
+        
+/*         function alert_msg(){
+        	alert("123123");
+        }
+        setTimeout(alert_msg, 2000); */
+        
+        //$(".ImportPage").load(location.href + " .ImportPage>*", "");
       });
-
-/*     $(".import_provider_service").click(function(){
-        $(".pagename").html($(this).attr("textname"));
-        $(".ImportPage").load("blank");
-        $(".provider_service").show();
-    });
-     */
     })
  </script>
  
 
   </head>
       
-  <body>
+      
+<c:forEach var="pd" items="${data}">
+
+      
+  <body id="main_body_tag">
+
+
 
     <aside class="side-nav" id="show-side-navigation1">
       <i class="fa fa-bars close-aside hidden-sm hidden-md hidden-lg" data-close="show-side-navigation1" style="margin-top: 10px;"></i>
       <div class="heading">
-        <img src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/021036514417/media/23148907008/medium/1501685726/enhance" alt="">
+        <img src="/goservice/files/service_provider_images/images/${pd.image}" alt="">
         <div class="info" style="margin-left: 20px; margin-top: 10px;">
-          <h3><a href="#">Sachin Maurya</a></h3>
-          <p>GoServices Pvt.Ltd.</p>
+          <h3><a href="#">${pd.name}</a></h3>
+          <p>${pd.shop_name}</p>
+          
         </div>
       </div>
 
@@ -710,7 +727,7 @@
       </section>
     </body>
     
-
-    </html>
+</c:forEach>
+  </html>
   
   

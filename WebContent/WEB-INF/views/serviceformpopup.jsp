@@ -291,7 +291,7 @@ AIzaSyDnH5fBGp4ghjtu4qA-MM2gRjUApRcsn-A
 
             $(".service_select_model").css({ "opacity": "0.1" });
             $(".service_select_vehicle_service").css({ "opacity": "0.1" });
-            $(".service_confirm_service").css({ "opacity": "10.1" });
+            $(".service_confirm_service").css({ "opacity": "0.1" });
 
 
             $(".service_bike_images").click(function () {
@@ -427,7 +427,7 @@ AIzaSyDnH5fBGp4ghjtu4qA-MM2gRjUApRcsn-A
 
 <!--Select vehicle start-->
 
-<div class="service_select_vehicle" style="display: none"s>
+<div class="service_select_vehicle" >
 
     <div class="service-fix-height">
         <h4>What type of vehicle do you have?</h4>
@@ -675,7 +675,7 @@ AIzaSyDnH5fBGp4ghjtu4qA-MM2gRjUApRcsn-A
 
 <!--Confirm Service-->
 
-<div class="service_confirm_service" >
+<div class="service_confirm_service"style="display: none">
     <div class="service-fix-height">
 
         <h4>User Details</h4>

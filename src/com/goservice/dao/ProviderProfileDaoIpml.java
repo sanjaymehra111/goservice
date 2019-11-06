@@ -31,6 +31,7 @@ public class ProviderProfileDaoIpml {
 						ppm.setEmail(rs.getString("email"));
 						ppm.setShop_name(rs.getString("shop_name"));
 						ppm.setAddress(rs.getString("address"));
+						ppm.setImage(rs.getString("image"));
 						ppm.setCreated_date(rs.getString("created_date"));
 						ppm.setUpdated_date(rs.getString("updated_date"));
 						ppm.setStatus(rs.getString("status"));

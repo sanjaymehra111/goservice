@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.goservice.dao.PasswordEncryptSha512;
+import com.goservice.dao.ProviderProfileDaoIpml;
 import com.goservice.dao.ProviderSignIn_UpDaoImple;
 import com.goservice.dao.ProviderUpdateDaoImpl;
 import com.goservice.model.ProviderMemberModel;
@@ -43,6 +44,9 @@ public class ProviderFunctionContrroller
 	
 	@Autowired
 	PasswordEncryptSha512 pasenc;
+	
+	@Autowired
+	ProviderProfileDaoIpml ppdao;
 
 	@RequestMapping(value="service_provider_signin", method=RequestMethod.GET)
 	public String service_provider_signin(@RequestParam String name, String contact, String email, String password, HttpSession session, RedirectAttributes redirectAttributes)
@@ -58,27 +62,34 @@ public class ProviderFunctionContrroller
 		return "redirect:/service_provider_dashboard";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="service_provider_signup", method=RequestMethod.GET)
 	public String service_provider_signup(@RequestParam String email, String password, HttpSession session, RedirectAttributes redirectAttributes)
 	{
 		String encpass = pasenc.PasswordEncrypt(password);
 		List<ProviderProfileModel> data = psdao.ProviderSignUp(email, encpass);
-		
 		if(data != null	)
 		{
-			SessionModel sessionModel = new SessionModel();
-			sessionModel.setUser_id(data.get(0).getProvider_id());
-			sessionModel.setSession_id(session.getId());
-			sessionModel.setTime(session.getCreationTime());
-			session.setAttribute("sessionData", sessionModel);
-			redirectAttributes.addFlashAttribute("provider_id", data.get(0).getProvider_id());
-			System.out.println("main from controller calling");
-			return "redirect:/service_provider_dashboard";
+			if(data.get(0).getStatus().equals(""+1))
+			{
+				SessionModel sessionModel = new SessionModel();
+				sessionModel.setUser_id(data.get(0).getProvider_id());
+				sessionModel.setSession_id(session.getId());
+				sessionModel.setTime(session.getCreationTime());
+				session.setAttribute("sessionData", sessionModel);
+				redirectAttributes.addFlashAttribute("provider_id", data.get(0).getProvider_id());
+				return "redirect:/service_provider_dashboard";
+			}
+			else
+			{
+				return "status_closed";
+						
+			}
 		}
 		
 		else
 		{
-			return "redirect:/service_provider_dashboard";
+			return "incorrect_id_pwd";
 		}			
 		
 	}
@@ -88,7 +99,6 @@ public class ProviderFunctionContrroller
 	@RequestMapping(value="update_service_provider_img", method=RequestMethod.POST)
 	public String Update_service_provider_img(ProviderProfileModel ppm,  @RequestParam CommonsMultipartFile file, HttpSession session)throws Exception {
 		ServletContext context= session.getServletContext();
-		
 		String path = context.getRealPath("/resources/service_provider_images/images/");
 		String filename= ucgdao.GetUniqueCode()+"-"+file.getOriginalFilename();
 		//String profile_path = path  + filename;
@@ -107,8 +117,16 @@ public class ProviderFunctionContrroller
 		return "redirect:/provider_profile";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="GetProviderProfile")
+	public String GetProviderProfile(@RequestParam String id){
+		List<ProviderProfileModel> data  =ppdao.Provider_details(id);
+		Gson gson = new Gson();
+		String details = gson.toJson(data);
+		return details;
+	}
 	
-
+	
 	@RequestMapping(value="update_service_provider_shop", method=RequestMethod.POST)
 	public String Update_service_provider_shop(ProviderServiceModel psm,  @RequestParam ArrayList<MultipartFile> file, HttpSession session)throws Exception {
 		int fs = file.size();
@@ -312,6 +330,13 @@ public class ProviderFunctionContrroller
 		return "redirect:/provider_profile"; 
 	}
 	
+	@RequestMapping(value="delete_team_member")
+	public String Delete_team_member(@RequestParam String id){
+		pudao.DeleteTeamMember(id);
+		return "redirect:/provider_profile"; 
+	}
+
+	
 	@ResponseBody
 	@RequestMapping("provider_get_car_bike_service")
 	public String Provider_get_car_service(@RequestParam String id)
@@ -328,7 +353,7 @@ public class ProviderFunctionContrroller
 	
 	@ResponseBody
 	@RequestMapping("view_service_shop_details")
-	public String View_service_shop_details(@RequestParam String id)
+	public String View_service_shop_details(@RequestParam String id, HttpSession session)
 	{
 		Gson gson = new Gson();
 		List<ProviderServiceModel> shop_details= pudao.GetShopDetails(id);
@@ -343,4 +368,4 @@ public class ProviderFunctionContrroller
 		session.invalidate();
 		return "redirect:/index";
 	}	
-}
+}	
