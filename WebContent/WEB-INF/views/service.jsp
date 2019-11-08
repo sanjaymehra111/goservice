@@ -422,7 +422,6 @@ $(".box").click(function(){
     </script>
 </div>
 
-
 <div class="content1">
 <div class="service-slider">    
                 
@@ -604,31 +603,31 @@ $(".box").click(function(){
   <div class="container">
     <p style="text-align: center; font-size: 30px; font-weight: bold;">Testimonials</p>
     <br><br><br><br>
-
+		<style>.Testimonials-height{padding:5px; max-height:100px;min-height:100px;overflow:hidden;}</style>
+		
     <div class="col-md-4">
     <div class="test-1">  
       <img src="/goservice/files/images/user1.png" class="user_image"><br><br><br>
-        <p style="text-align: center; font-size: 20px; font-weight: bold;">Brian Maxweel</p>
-        <p style="text-align: center; font-size: 18px; ">Integer id ante eu est gravida volutpat. vel consequat tellus dignissim vel. Cscipit et. Curabitur eu lobortis dui.</p><br>
+        <p style="text-align: center; font-size: 20px; font-weight: bold;">Rakesh Kumar</p>
+        <div style="text-align: center; font-size: 18px;" class="Testimonials-height">Good service done for my bike, it is running smoother after service. </div><br>
     </div> <br><br>
     </div>
 
     <div class="col-md-4">
     <div class="test-1">  
       <img src="/goservice/files/images/user2.png" class="user_image"><br><br><br>
-        <p style="text-align: center; font-size: 20px; font-weight: bold;">Hayden Frland</p>
-        <p style="text-align: center; font-size: 18px; ">Integer id ante eu est gravida volutpat. vel consequat tellus dignissim vel. Cscipit et. Curabitur eu lobortis dui.</p><br>
+        <p style="text-align: center; font-size: 20px; font-weight: bold;">Nitin Pawar</p>
+        <div style="text-align: center; font-size: 18px;" class="Testimonials-height">Thanks for responding quick and resolving problems which I have mentioned... I appreciate that... </div><br>
     </div><br><br>
     </div>
 
     <div class="col-md-4">
     <div class="test-1">  
       <img src="/goservice/files/images/user3.png" class="user_image"><br><br><br>
-        <p style="text-align: center; font-size: 20px; font-weight: bold;">Luke Pierce</p>
-        <p style="text-align: center; font-size: 18px; ">Integer id ante eu est gravida volutpat. vel consequat tellus dignissim vel. Cscipit et. Curabitur eu lobortis dui.</p><br>
+        <p style="text-align: center; font-size: 20px; font-weight: bold;">Arjun Singh</p>
+        <div style="text-align: center; font-size: 18px;" class="Testimonials-height">Easy to use and great response and follow by the team, highly recommended. !!! Value for money.. !!!</div><br>
     </div><br><br>
     </div>
-
 
 
   </div><br><br><br><br>

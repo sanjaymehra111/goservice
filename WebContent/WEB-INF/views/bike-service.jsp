@@ -157,7 +157,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">General Service</div>
                     <div style="margin-top: 10px;">1277 Have Availed</div>
                     <div class="service-price"> &#8377; 1500 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -170,7 +170,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">General Service & Polish</div>
                     <div style="margin-top: 10px;">1857 Have Availed</div>
                     <div class="service-price"> &#8377; 3499 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -183,7 +183,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Bike Engine Service</div>
                     <div style="margin-top: 10px;">1367 Have Availed</div>
                     <div class="service-price"> &#8377; 3999 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -196,7 +196,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Bike Polish</div>
                     <div style="margin-top: 10px;">1273 Have Availed</div>
                     <div class="service-price"> &#8377; 2499 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -209,7 +209,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Bike Ceramic Coating</div>
                     <div style="margin-top: 10px;">14200 Have Availed</div>
                     <div class="service-price"> &#8377; 1500 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -222,7 +222,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Bike Detailing</div>
                     <div style="margin-top: 10px;">1257 Have Availed</div>
                     <div class="service-price"> &#8377; 2100 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>

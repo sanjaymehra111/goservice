@@ -242,11 +242,17 @@
   float:right;
   font-size: 17px;
 }
+
 .go-logo
 {
   width: 250px;
   height: 50px;
   transition: 0.3s;
+}
+
+.hover1:hover
+{
+color:red;
 }
 @media(max-width:975px)
 {
@@ -366,8 +372,9 @@
     <div class="container-fluid">
     <div class="col-md-12 go-site-logo">
         <a href="index" style="text-decoration: none"><img src="/goservice/files/images/logo3.png" class="go-logo"></a>
-        <button type="button" class="location-selected-button"><i class="fa fa-street-view" style="font-size: 25px;"></i> <span class="selected-location"> Delhi </span></button>
-        <a href="tel:+123456789" style="text-decoration: none"><button type="button" class="fixbutton call-button"><i class="fa fa-mobile" style="font-size: 25px;"></i> +1234567890 </button></a>
+        <button type="button" class="location-selected-button hide"><i class="fa fa-street-view" style="font-size: 25px;"></i> <span class="selected-location"> Delhi </span></button>
+        <a href="mailto:support@serviceonway.com" style="text-decoration: none"><button type="button" class="fixbutton call-button"><i class="fa fa-envelope-o" style="font-size: 25px; transform:scale(0.85)"></i> support@serviceonway.com</button></a>
+        <a href="tel:+9990944381" style="text-decoration: none"><button type="button" class="fixbutton call-button"><i class="fa fa-mobile" style="font-size: 25px;"></i> +9990944381</button></a>
       </div>
 </div>
 </div>
@@ -431,11 +438,12 @@
                     <a href="car-service" class="site-menu" style="text-decoration: none">Car Service</a>
                     <a href="bike-service" class="site-menu" style="text-decoration: none">Bike Service</a>
                     <!-- <a href="about-us" class="site-menu" style="text-decoration: none">About us</a> -->
-                    <a class="site-menu select_insurance" style="text-decoration: none">Insurance</a>
+                    
+                    <!-- <a class="site-menu select_insurance" style="text-decoration: none">Insurance</a>
                     <div class="insurance_type"><br>
                         <a href="car-insurance" style="text-decoration: none"><div class="site-menu" style="width: 100%; text-align: left;">Car</div></a><br>
                         <a href="bike-insurance" style="text-decoration: none"><div class="site-menu" style="width: 100%; text-align: left">Bike</div></a><br>
-                    </div>
+                    </div> -->
                     
                     <c:if test="${fn:length(sessionData.user_id) != 0}">
                      	<a href="service_provider_dashboard" class="site-menu" style="text-decoration: none; ">Dashboard</a> 
@@ -444,7 +452,10 @@
                     <!-- <a href="admin_dashboard" class="site-menu" style="text-decoration: none; ">Admin</a>
                     <a href="user_dashboard" class="site-menu" style="text-decoration: none; ">User</a> -->
                     
-                    <a href="login" class="site-menu" style="text-decoration: none; float: right;">Log In</a>
+                    <c:if test="${fn:length(sessionData.user_id) == 0}">
+	                	<a href="login" class="site-menu" style="text-decoration: none; float: right;">Log In</a>
+		            </c:if>
+                    
                  
             </div>
             <div class="site-logo">
@@ -456,21 +467,33 @@
             <div class="col-md-8 site-menus-mobile">
                     <div id="mySidenav" class="sidenav">
                             <span class="closebtn" onclick="closeNav()">&times;</span>
-                            <a href="login" class="site-menu-mobile" style="text-decoration: none; ">Log In</a>
-                            <a href="admin_dashboard" class="site-menu-mobile" style="text-decoration: none; ">Admin</a>
+    
+                            <c:if test="${fn:length(sessionData.user_id) == 0}">
+	                            <a href="login" class="site-menu-mobile" style="text-decoration: none; ">LogIn</a>
+		                    </c:if>
+                            
+                            
+                            <!-- <a href="admin_dashboard" class="site-menu-mobile" style="text-decoration: none; ">Admin</a>
                             <a href="service_provider_dashboard" class="site-menu-mobile" style="text-decoration: none; ">Partner</a>
-                            <a href="user_dashboard" class="site-menu-mobile" style="text-decoration: none; ">User</a>
+                            <a href="user_dashboard" class="site-menu-mobile" style="text-decoration: none; ">User</a> -->
+                            
+                            <c:if test="${fn:length(sessionData.user_id) != 0}">
+	                            <a href="service_provider_dashboard" class="site-menu-mobile" style="text-decoration: none; ">Dashboard</a>
+		                    </c:if>
+                            
                             <a href="index" class="site-menu-mobile" style="text-decoration: none">Home</a>
                             <a href="car-service" class="site-menu-mobile" style="text-decoration: none">Car Service</a>
                             <a href="bike-service" class="site-menu-mobile" style="text-decoration: none">Bike Service</a>
-                            <!-- <a href="about-us" class="site-menu-mobile" style="text-decoration: none">About us</a> -->
-                            
-                            <a class="site-menu-mobile select_insurance_mobile" style="text-decoration: none">Insurance</a>
+                            <!-- <a href="about-us" class="site-menu-mobile" style="text-decoration: none">About us</a>
+                            <a href="contact-us" class="site-menu-mobile" style="text-decoration: none">Contact</a> -->
+                            <a href="service_provider_login" class="site-menu-mobile" style="text-decoration: none">Become a Partner</a>
+                                                        
+                            <!-- <a class="site-menu-mobile select_insurance_mobile" style="text-decoration: none">Insurance</a>
                             <div class="insurance_type_mobile"><br>
                                 <a href="car-insurance" style="text-decoration: none;"><div class="site-menu-mobile" style="width: 100%; text-align: left;">Car</div></a><br>
                                 <a href="bike-insurance" style="text-decoration: none;"><div class="site-menu-mobile" style="width: 100%; text-align: left">Bike</div></a><br>
-                            </div>
-                            <!-- <a href="contact-us" class="site-menu-mobile" style="text-decoration: none">Contact</a> -->
+                            </div> -->
+                            
                     </div>
             </div>
         </div>
@@ -504,7 +527,9 @@
 
 <!--Select Location -->
 
-<div class="main_location_select">
+
+
+<div class="main_location_select hide">
 
     <style>
 

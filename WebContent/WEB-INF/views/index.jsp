@@ -24,7 +24,7 @@
 
 
 <!--For GeoLocaitgon-->
-<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyAa4ggTa-tkUQEW6Cv5_h8o-WOjiuboiOY&amp;libraries=places,geometry"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyAhJW0BL0uuVzXfhkhiQb3ZXF8f4pQ0vYQ&amp;libraries=places,geometry"></script>
 
 <style>
     .textstyle1
@@ -467,7 +467,6 @@
       box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.308);
       color: rgb(56, 100, 121);
     }
-    
     
     
     @media(max-width:975px)
@@ -1292,28 +1291,30 @@ $('.bikeservices').slick({
     <p style="text-align: center; font-size: 30px; font-weight: bold;">Testimonials</p>
     <center><div style="border-bottom: solid 3px rgb(20, 54, 94); width: 100px; text-align: center"></div></center>
     <br><br><br><br>
-
+		
+		<style>.Testimonials-height{padding:5px; max-height:100px;min-height:100px;overflow:hidden;}</style>
+		
     <div class="col-md-4">
     <div class="test-1">  
       <img src="/goservice/files/images/user1.png" class="user_image"><br><br><br>
-        <p style="text-align: center; font-size: 20px; font-weight: bold;">Brian Maxweel</p>
-        <p style="text-align: center; font-size: 18px; ">Integer id ante eu est gravida volutpat. vel consequat tellus dignissim vel. Cscipit et. Curabitur eu lobortis dui.</p><br>
+        <p style="text-align: center; font-size: 20px; font-weight: bold;">Rakesh Kumar</p>
+        <div style="text-align: center; font-size: 18px;" class="Testimonials-height">Good service done for my bike, it is running smoother after service. </div><br>
     </div> <br><br>
     </div>
 
     <div class="col-md-4">
     <div class="test-1">  
       <img src="/goservice/files/images/user2.png" class="user_image"><br><br><br>
-        <p style="text-align: center; font-size: 20px; font-weight: bold;">Hayden Frland</p>
-        <p style="text-align: center; font-size: 18px; ">Integer id ante eu est gravida volutpat. vel consequat tellus dignissim vel. Cscipit et. Curabitur eu lobortis dui.</p><br>
+        <p style="text-align: center; font-size: 20px; font-weight: bold;">Nitin Pawar</p>
+        <div style="text-align: center; font-size: 18px;" class="Testimonials-height">Thanks for responding quick and resolving problems which I have mentioned... I appreciate that... </div><br>
     </div><br><br>
     </div>
 
     <div class="col-md-4">
     <div class="test-1">  
       <img src="/goservice/files/images/user3.png" class="user_image"><br><br><br>
-        <p style="text-align: center; font-size: 20px; font-weight: bold;">Luke Pierce</p>
-        <p style="text-align: center; font-size: 18px; ">Integer id ante eu est gravida volutpat. vel consequat tellus dignissim vel. Cscipit et. Curabitur eu lobortis dui.</p><br>
+        <p style="text-align: center; font-size: 20px; font-weight: bold;">Arjun Singh</p>
+        <div style="text-align: center; font-size: 18px;" class="Testimonials-height">Easy to use and great response and follow by the team, highly recommended. !!! Value for money.. !!!</div><br>
     </div><br><br>
     </div>
 

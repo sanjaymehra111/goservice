@@ -158,7 +158,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Genral Service And Polish</div>
                     <div style="margin-top: 10px;">1257 Have Availed</div>
                     <div class="service-price"> &#8377; 2155 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -171,7 +171,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Complete Car Detailing</div>
                     <div style="margin-top: 10px;">852 Have Availed</div>
                     <div class="service-price"> &#8377; 1399 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -184,7 +184,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Car Ac Service</div>
                     <div style="margin-top: 10px;">2499 Have Availed</div>
                     <div class="service-price"> &#8377; 1255 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -197,7 +197,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Car Meachine Service</div>
                     <div style="margin-top: 10px;">4587 Have Availed </div>
                     <div class="service-price"> &#8377; 2377 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -210,7 +210,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Car Dent Removal</div>
                     <div style="margin-top: 10px;">1200 Have Availed</div>
                     <div class="service-price"> &#8377; 699 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -223,7 +223,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Car Oil Service</div>
                     <div style="margin-top: 10px;">588 Have Availed</div>
                     <div class="service-price"> &#8377; 2200 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>
@@ -236,7 +236,7 @@
                     <div style="font-size: 20px; font-weight: bold; color: white; ">Car Monitoring Service</div>
                     <div style="margin-top: 10px;">3688 Have Availed</div>
                     <div class="service-price"> &#8377; 1500 <br>
-                        <a href="service.html" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
+                        <a href="service" style="text-decoration:none"><button type="button" class="service-booknow-button">Book Now</button></a>
                     </div>
                 </div>
         </div>

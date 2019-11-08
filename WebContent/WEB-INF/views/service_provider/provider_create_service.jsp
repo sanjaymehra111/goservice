@@ -484,7 +484,7 @@ $(".service_save_button2").click(function()
             <!-- <button class="service_edit_button1 service_edit_button2">Edit</button> -->
             <div class="service_buttons">
                 <button class="service_edit_button1 service_cancel_button2">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="service_edit_button1 service_save_button2">Save</button>
+                <button class="service_edit_button1 service_save_button2">Update</button>
             </div>
           </div>
           <div class="container-fluid"></div>

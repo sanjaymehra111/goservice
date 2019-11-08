@@ -40,6 +40,13 @@
 <br><br>
 
 <style>
+
+ input[type=number]::-webkit-inner-spin-button, 
+			input[type=number]::-webkit-outer-spin-button { 
+			  -webkit-appearance: none; 
+			  margin: 0; 
+			}
+
 .form-main
 {
     background-color: rgba(19, 35, 47, 0.9);
@@ -172,7 +179,7 @@ $(function login_sigup_section(){
 
             <div class="user_login_section">
                 <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Become A Partner</p><br>
-                <input type="text" maxlength="50" class="user_log_email form-text1" placeholder="User Email"><br><br>
+                <input type="text" maxlength="50" class="user_log_email form-text1" placeholder="User Email Or Contact"><br><br>
                 <input type="password" maxlength="50" class="user_log_password form-text1" placeholder="Password">
                 <br><br><br>
                 <p style="float: right; margin-right: 10%;  font-size: 15px;"><a href="#" style="text-decoration: none;  color: rgba(255, 255, 255, 0.767)">Forgot Password ?</a></p><br><br>
@@ -182,17 +189,12 @@ $(function login_sigup_section(){
 
 <script>
 $(function(){
-	
-	$(".user_contact").keypress(function(e)
-		{if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
-		return false; else return true;})
-		
-		$(".user-login-button1").click(function(){
+	$(".user-login-button1").click(function(){
 			var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 			var email = $(".user_log_email").val();
 			var password = $(".user_log_password").val();
 			
-			if(email == null ||  email== "" || !email.match(valid_email))
+			if(email == null ||  email== "")
 			{
 				$(".user_log_email").css({"border":"solid 2px red"});
 			}
@@ -208,8 +210,10 @@ $(function(){
 				$(".user_log_email").css({"border":"solid 0.5px black"});
 				$(".user_log_password").css({"border":"solid 0.5px black"});
 				
+				
 				signup(email, password);
 			}
+			
 			
 			function signup(email, password)
 			{
@@ -219,6 +223,7 @@ $(function(){
 					contentType: "text",
 					dataType:"text",
 			 	  	type: 'get',
+			 	  	cashe:false,
 				 	success:function(data){
 				 		if (data == "status_closed")
 				 			{
@@ -235,17 +240,22 @@ $(function(){
 				 			
 				 		},
 						error:function(error){alert(error)},
-					}) 
-			}
-				
-				
+					}) // ajax close
+			} // else close
 		})
 	
-	$(".user-signup-button1").click(function(){
-		var name = $(".user_id").val();
-		var email = $(".user_email").val();
-		var password = $(".user_password").val();
-		var contact = $(".user_contact").val();
+		
+		var name ="";
+		var email ="";
+		var password ="";
+		var contact ="";
+		var GeneOtp ="";
+		
+$(".user-signup-button1").click(function(){
+		name = $(".user_id").val();
+		email = $(".user_email").val();
+		password = $(".user_password").val();
+		contact = $(".user_contact").val();
 		var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		
 		
@@ -281,35 +291,73 @@ $(function(){
 			$(".user_email").css({"border":"solid 0.5px black"});
 			$(".user_password").css({"border":"solid 0.5px black"});
 			$(".user_contact").css({"border":"solid 0.5px black"});
+
 			
-			signin(name, contact, email, password);
+				$.ajax({
+					url:"OtpGenerator",
+					dataType:'text',
+					contentType:'text',
+					cache:false,
+					success:function(otp){
+							GeneOtp=otp;
+							var SendOtp = 'http://bulksms.softonicsolution.com/api/sendmsg.php?user=alex-c&pass=sahab123&sender=ALEXCO&phone='+contact+'&text='+GeneOtp+'&priority=ndnd&stype=normal' 
+							window.open(SendOtp,'_blank');
+						},
+					error:function(error){alert("error")},
+				})
+
+			
+			$(".otp_button1").click();
+			
+			
+			
+			
 		}
+})// user-signup-button1 button click close
 		
-		function signin(name, contact, email, password)
+		
+		
+	$(".check_otp").click(function(){
+		
+		var user_otp = $(".otp_value").val();
+		if(user_otp == GeneOtp)
+			signup(name, contact, email, password);
+		else
+			alert("Wrong OTP Please regeneration OTP")
+		//console.log(name+","+contact+","+email+","+password);
+		 
+	
+	})	
+	
+	
+		
+		function signup(name, contact, email, password)
 		{
-		 $.ajax({
-			url:"service_provider_signin",
-			data :{name:name, contact:contact, email:email, password:password},
-			contentType: false,
-	 	  	type: 'get',    
-		 	success:function(data){
-		 		window.location.href="service_provider_dashboard";	
-		 		},
-			error:function(error){alert("error")},
-			}) 
-		}
-	})
+			 $.ajax({
+				url:"service_provider_signin",
+				data :{name:name, contact:contact, email:email, password:password},
+				contentType: false,
+		 	  	type: 'get',    
+			 	success:function(data){
+			 		window.location.href="service_provider_dashboard";	
+			 		},
+				error:function(error){alert("error")},
+			}) // ajax close 
+		} // signup close
+	
 })
 </script>
 
             <div class="user_signup_section" style="display: none">
                 <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Sign Up for Free</p><br>
                 <input type="text" maxlength="50" class="user_id form-text1" placeholder="Name"><br><br>
-                <input type="text" maxlength="10" class="user_contact form-text1" placeholder="Contact"><br><br>          
+                <input type="number" maxlength="10" class="user_contact form-text1" onKeyPress="if(this.value.length==10) return false;" placeholder="Contact"><br><br>          
                 <input type="email" maxlength="50" class="user_email form-text1" placeholder="Email ID"><br><br>
                 <input type="password" maxlength="50" class="user_password form-text1" placeholder="Password">
                 <br><br><br><br>    
                 <button type="submit" class="user-signup-button1 user_submit_button1">SIGN UP</button>
+                <button type="button" class="otp_button1" data-toggle="modal" data-target="#myOtpModal">otp</button>
+                	
                 <br><br><br><br><br>
             </div>
 
@@ -330,6 +378,65 @@ $(function(){
         })
         </script>
 </div>
+
+    <style>
+    .otp_value
+    {
+    	border:none;
+    	outline:none;
+    	border-bottom:solid 2px #0000001c;
+    	text-align:center;
+    	font-size:18px;
+    	transition:0.3s; 
+    }
+    
+    .otp_value:focus
+    {
+    	border-bottom:solid 2px green;
+    }
+    
+    .modal-dialog
+    {
+    	top:20%;
+    }	
+    .otp_button2
+    {
+    	width: 160px;
+	    padding: 7px;
+	    background: #17699a;
+	    border: none;
+	    outline: none;
+	    color: white;
+	    text-transform: uppercase;
+	    transition:0.3s;
+	}
+	.otp_button2:hover
+	{
+		background: #172933;
+	}
+	.otp_button2:active {
+	transition:0.1s;
+	transform:scale(0.95);
+	}
+    </style>  
+    
+ <div class="modal fade" id="myOtpModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-body" style="text-align:center;">
+          <h4>ENTER OTP</h4>
+		    <input type="number" class="otp_value" onKeyPress="if(this.value.length==6) return false;">
+		    <br><br>
+		    <button class="otp_button2">Regenrate OTP</button>
+		    <button class="otp_button2 check_otp">Submit</button>
+		    <br><br>
+		    </div>
+        </div>
+      </div>
+    </div>
+    
+
 
 </div>
 </body>

@@ -57,7 +57,7 @@
         <br><br>    <div class="container">
         
             
-    <div class="col-md-4 " style="text-align: left; ">
+    <div class="col-md-3 " style="text-align: left; ">
             <div style="text-transform: uppercase;">QUICK LINKS</div>
             <div style="border-bottom: solid 2px rgb(216, 72, 72); padding-bottom: 10px; width: 50px;"></div><br>
             <a href="index" style="text-decoration: none"><div class="f-links"><i class="fa fa-caret-right "></i> &nbsp;&nbsp; Home</div></a>
@@ -66,7 +66,7 @@
             <br><br>
     </div>
 
-    <div class="col-md-4 " style="text-align: left; ">
+    <div class="col-md-3 " style="text-align: left; ">
             <div style="text-transform: uppercase;">Special Links</div>
             <div style="border-bottom: solid 2px rgb(216, 72, 72); padding-bottom: 10px; width: 50px;"></div><br>
             <a href="service_provider_login" style="text-decoration: none"><div class="f-links"><i class="fa fa-caret-right"></i> &nbsp;&nbsp; Become a Partner</div></a>
@@ -75,12 +75,27 @@
             <br><br>
     </div>
 
-    <div class="col-md-4 " style="text-align: left; ">
+
+    <div class="col-md-3 " style="text-align: left; ">
+            <div style="text-transform: uppercase;">Social Links</div>
+            <div style="border-bottom: solid 2px rgb(216, 72, 72); padding-bottom: 10px; width: 50px;"></div><br>
+            <a href="https://www.facebook.com/Serviceonway1" style="text-decoration: none"><div class="f-links"><i class="fa fa-caret-right"></i> &nbsp;&nbsp; <i class="fa fa-facebook"></i> Facebook</div></a>
+            <a href="https://twitter.com/serviceonway" style="text-decoration: none"><div class="f-links"><i class="fa fa-caret-right "></i> &nbsp;&nbsp; <i class="fa fa-twitter"></i> Twitter </div></a>
+            <a href="https://www.instagram.com/serviceonway" style="text-decoration: none"><div class="f-links"><i class="fa fa-caret-right "></i> &nbsp;&nbsp;<i class="fa fa-instagram"></i> Instagram</div></a>
+            <br><br>
+    </div>
+    
+    <div class="col-md-3 " style="text-align: left; ">
             <div style="text-transform: uppercase;">Contact</div>
             <div style="border-bottom: solid 2px rgb(216, 72, 72); padding-bottom: 10px; width: 50px;"></div><br>
-            <div class="f-links" style="color:rgb(145, 146, 150);">Abcd-123456, Uttam Nagar <br> New Delhi, Inida<br>
-            Phone : +91-1234567890 <br>
-            Email : abcd@gmail.com</div>
+            <div class="f-links" style="color:rgb(145, 146, 150);">
+            <!-- Abcd-123456, Uttam Nagar <br> New Delhi, Inida<br> -->
+            <i class="fa fa-mobile" style="font-size: 23px;"></i>  <a href="tel:+9990944381" style="text-decoration: none; color:rgb(145, 146, 150)"> +9990944381</a><br>
+            <i class="fa fa-envelope-o"></i>  <a href="mailto:support@serviceonway.com" style="text-decoration: none; color:rgb(145, 146, 150)">support@serviceonway.com</a><br>
+            
+        	
+        	
+        	</div>
             <br><br>
     </div>
 

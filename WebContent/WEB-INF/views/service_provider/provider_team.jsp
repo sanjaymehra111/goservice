@@ -215,7 +215,7 @@
 
             });
         
-            $(".profile_cancel_button2, .profile_save_button2").click(function(){
+            $(".profile_cancel_button2").click(function(){
               $(".profile_buttons").hide();
               $(".camera_icon1").hide();
               $(".profile_edit_button2").show();
@@ -264,9 +264,9 @@
     			var i, text="";
     			for(i=0; i<data.length; i++)
 	    			{
-    						text+='<div class="col-md-4">';
+    						text+='<div class="col-md-4 col-xs-12">';
 		    				text+='<div class="test-2">';
-		    				text+='<div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px;">';
+		    				text+='<div style="background-color: rgba(0, 0, 0, 0.514); border-radius: 10px; min-height:350px">';
 		    				text+='<br><br>';
 		    				text+='<center><img src="/goservice/files/service_provider_images/images/'+data[i].image+'" class="user_image1"></center>';
 		    				text+='<br>';
@@ -298,62 +298,87 @@
      
      $(function EditMemberDetails(){
     	 $(document).on('click','.team_edit_button1', function(){
-         		var id = $(this).val();
-         		$.ajax({
-            		url:"edit_provider_team_member",
-            		data:{team_member_id:id},
-            		contentType:"json",
-            		dataType:"json",
-            		type:"GET",
-            		success:function(data){
-            			console.log(data);
-            			$(".edit_member_image1").attr('src', '/goservice/files/service_provider_images/images/'+data[0].image+'');
-            			$(".edit_member_name").val(data[0].name);
-            			$(".edit_member_contact").val(data[0].contact);
-            			$(".edit_member_email").val(data[0].email);
-            			$(".edit_member_address").val(data[0].address);
-            			$(".team_member_id").val(data[0].team_member_id);
-            		},
-            		error:function(){alert("error")}
-            	});
-         		
-         	});
-    	 });
+    		     		var id = $(this).val();
+		         		$.ajax({
+		            		url:"edit_provider_team_member",
+		            		data:{team_member_id:id},
+		            		contentType:"json",
+		            		dataType:"json",
+		            		type:"GET",
+		            		success:function(data){
+		            			console.log(data);
+		            			$(".edit_member_image1").attr('src', '/goservice/files/service_provider_images/images/'+data[0].image+'');
+		            			$(".edit_member_name").val(data[0].name);
+		            			$(".edit_member_contact").val(data[0].contact);
+		            			$(".edit_member_email").val(data[0].email);
+		            			$(".edit_member_address").val(data[0].address);
+		            			$(".team_member_id").val(data[0].team_member_id);
+		            		},
+		            		error:function(){alert("error")}
+		            	});//ajax close
+	    			
+         }); // button close
+    });
      
      
      $(function UppdateMemberDetails(){
     	 $(document).on('click','.profile_save_button2', function(){
-    		var data = new FormData();
- 			var url = "";
- 			var u_imgl = $(".edit_member_image1").attr('src').length;
- 			
- 			 if(u_imgl  < 1000)
- 			 	{var url = "update_service_provider_team_no_img";}	
- 			else
- 				{var url = "update_service_provider_team_img";}
- 				
- 			
- 			data.append("name", $(".edit_member_name").val());
- 			data.append("contact", $(".edit_member_contact").val());
- 			//data.append("email", $(".provider_email").val());
- 			data.append("email", $(".edit_member_email").val());
- 			data.append("address", $(".edit_member_address").val());
- 			data.append("team_member_id", $(".team_member_id").val());
- 			data.append("file", $(".user_profile1")[0].files[0]);
- 			console.log(data);
- 		    $.ajax({
- 				 	url:url,
- 				 	data: data,
- 			 		enctype: 'multipart/form-data',
- 				 	processData: false,
- 				 	contentType: false,
- 			 	  	type: 'Post',    
- 				 	cache: false,
- 				 	success : function(){alert("Update Success")},
- 				 	error : function(){alert("Error Found")}
+    		 
+    		var name = $(".edit_member_name").val();
+ 			var contact = $(".edit_member_contact").val();
+ 			var address =$(".edit_member_address").val();
 
- 		});//ajax close 
-         		
+ 			if(name == '')
+ 			{
+ 				$(".edit_member_name").css({"border-bottom":"solid 1px red"});
+ 			}
+ 			
+ 			else if(contact == '' || contact.length!=10)
+ 			{
+ 				$(".edit_member_name").css({"border-bottom":"solid 1px #2a2b3d"});
+ 				$(".edit_member_contact").css({"border-bottom":"solid 1px red"});
+ 			}
+ 			
+ 			else if(address == '')
+ 			{
+ 				$(".edit_member_name").css({"border-bottom":"solid 1px #2a2b3d"});
+ 				$(".edit_member_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+ 				$(".edit_member_address").css({"border-bottom":"solid 1px red"});
+ 			}
+ 			else
+ 			{	
+	    		$(".edit_member_name").css({"border-bottom":"solid 1px #2a2b3d"});
+	    		$(".edit_member_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+	    		$(".edit_member_address").css({"border-bottom":"solid 1px #2a2b3d"});
+	    			 
+		    		var data = new FormData();
+		 			var url = "";
+		 			var u_imgl = $(".edit_member_image1").attr('src').length;
+		 			
+		 			 if(u_imgl  < 1000)
+		 			 	{var url = "update_service_provider_team_no_img";}	
+		 			else
+		 				{var url = "update_service_provider_team_img";}
+		 			
+		 			data.append("name", $(".edit_member_name").val());
+		 			data.append("contact", $(".edit_member_contact").val());
+		 			data.append("email", $(".edit_member_email").val());
+		 			data.append("address", $(".edit_member_address").val());
+		 			data.append("team_member_id", $(".team_member_id").val());
+		 			data.append("file", $(".user_profile1")[0].files[0]);
+		 			
+		 			$.ajax({
+		 				 	url:url,
+		 				 	data: data,
+		 			 		enctype: 'multipart/form-data',
+		 				 	processData: false,
+		 				 	contentType: false,
+		 			 	  	type: 'Post',    
+		 				 	cache: false,
+		 				 	success : function(){alert("Update Success")},
+		 				 	error : function(){alert("Error Found")}
+		 				});//ajax close 
+ 			}// else close  		
 });
 });
      
@@ -396,7 +421,7 @@
 						<span class="space">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 	               		<span class="spacea"><br><brr></span>
                       <i class="fa fa-phone fa_text_fonts fa_text_fonts1"></i>
-                      <input type="text" value="" name="provider_team_contact" class="text_field5 edit_member_contact" readonly>
+                      <input type="contact" onKeyPress="if(this.value.length==10) return false;" value="" name="provider_team_contact" class="text_field5 edit_member_contact" readonly>
                         
                       <br><br>
               
@@ -412,7 +437,7 @@
                       <button class="profile_edit_button1 profile_edit_button2">Edit</button>
                       <div class="profile_buttons" style="display: none;">
                           <button class="profile_edit_button1 profile_cancel_button2">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                          <button class="profile_edit_button1 profile_save_button2">Save</button>
+                          <button class="profile_edit_button1 profile_save_button2">Update</button>
                       </div>
                     </div><br>
                   </div>
@@ -466,7 +491,6 @@ $(function(){
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
             <h4 style="font-weight:bold; text-align:center" class="modal-title">Are You Sure You Want To Delete Team Member</h4>
-            
           </div>
           <div class="modal-body" style="text-align:center;">
 		    	<img src="" class="edit_member_image1 delete_member_img"><br><br>

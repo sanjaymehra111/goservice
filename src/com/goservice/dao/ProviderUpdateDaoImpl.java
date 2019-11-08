@@ -60,7 +60,7 @@ public class ProviderUpdateDaoImpl {
 		
 		if(query1.size() > 0)
 		{	
-			String query2 = "UPDATE service_provider_shop_details SET shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',image='"+filename+"', updated_date='"+date+"' WHERE provider_id='"+psm.getProvider_id()+"'";
+			String query2 = "UPDATE service_provider_shop_details SET shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',image='"+filename+"', latitude='"+psm.getLatitude()+"', longitude='"+psm.getLongitude()+"', updated_date='"+date+"' WHERE provider_id='"+psm.getProvider_id()+"'";
 			return template.update(query2);
 		}
 		else
@@ -98,7 +98,7 @@ public class ProviderUpdateDaoImpl {
 		
 		if(query1.size() > 0)
 		{	
-			String query2 = "UPDATE service_provider_shop_details SET shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',updated_date='"+date+"' WHERE provider_id='"+psm.getProvider_id()+"'";
+			String query2 = "UPDATE service_provider_shop_details SET shop_name='"+psm.getShop_name()+"', contact='"+psm.getContact()+"', email='"+psm.getEmail()+"',address='"+psm.getAddress()+"',latitude='"+psm.getLatitude()+"', longitude='"+psm.getLongitude()+"', updated_date='"+date+"' WHERE provider_id='"+psm.getProvider_id()+"'";
 			return template.update(query2);
 		}
 		else
@@ -260,6 +260,50 @@ public class ProviderUpdateDaoImpl {
 		return template.update(query);
 	}
 
+	public List<ProviderServiceModel> CountCarService(String id) 
+	{
+		List<ProviderServiceModel> query = template.query("SELECT COUNT(provider_id) FROM service_provider_car_service WHERE provider_id ='"+id+"'", new RowMapper<ProviderServiceModel>()
+				{
+					@Override
+					public ProviderServiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						ProviderServiceModel psm = new ProviderServiceModel();
+						psm.setCount(rs.getString("count(provider_id)"));
+						return psm;
+					}
+				});
+		return query;
+	}
+	
+	public List<ProviderServiceModel> CountBikeService(String id) 
+	{
+		List<ProviderServiceModel> query = template.query("SELECT COUNT(provider_id) FROM service_provider_bike_service WHERE provider_id ='"+id+"'", new RowMapper<ProviderServiceModel>()
+				{
+					@Override
+					public ProviderServiceModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						ProviderServiceModel psm = new ProviderServiceModel();
+						psm.setCount(rs.getString("count(provider_id)"));
+						return psm;
+					}
+				});
+		return query;
+	}
+	
+	public List<ProviderMemberModel> CountTeamService(String id) 
+	{
+		List<ProviderMemberModel> query = template.query("SELECT COUNT(provider_id) FROM service_provider_team WHERE provider_id ='"+id+"'", new RowMapper<ProviderMemberModel>()
+				{
+					@Override
+					public ProviderMemberModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						ProviderMemberModel pmm = new ProviderMemberModel();
+						pmm.setCount(rs.getString("count(provider_id)"));
+						return pmm;
+					}
+				});
+		return query;
+	}
 	
 	public List<ProviderServiceModel> GetShopDetails(String id)
 	{

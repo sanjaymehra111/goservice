@@ -13,6 +13,7 @@ public class ProviderMemberModel {
 	String image;
 	String updated_date;
 	String created_date;
+	String count;
 	
 	public ProviderMemberModel() {}
 

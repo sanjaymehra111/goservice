@@ -196,7 +196,7 @@
 
             });
         
-            $(".profile_cancel_button2, .profile_save_button2").click(function(){
+            $(".profile_cancel_button2").click(function(){
               $(".profile_buttons").hide();
               $(".camera_icon1").hide();
               $(".profile_edit_button2").show();
@@ -243,7 +243,7 @@ $(function(){
 		type:"get",
 		success:function(data)
 		{
-			console.log(data);
+			//console.log(data);
 			$("#provider_name").val(data[0].name);
 			$("#provider_contact").val(data[0].contact);
 			$("#provider_email").val(data[0].email);
@@ -258,7 +258,60 @@ $(function(){
 /* Update Profile Details */
 
 $(".profile_save_button2").click(function()
+{
+	
+	var name = $("#provider_name").val();
+	var contact = $("#provider_contact").val();
+	var email = $("#provider_email").val();
+	var shop = $("#provider_shop_name").val();
+	var address = $("#provider_address").val();
+	
+	var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+	
+	if(name == '')
+	{
+		$("#provider_name").css({"border-bottom":"solid 1px red"});
+	}
+	
+	else if(contact == '' || contact.length!=10)
+	{
+		$("#provider_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_contact").css({"border-bottom":"solid 1px red"});
+	}
+	
+	else if(email == '' || !email.match(valid_email))
+	{
+		$("#provider_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_email").css({"border-bottom":"solid 1px red"});
+	} 
+	
+
+	else if(shop == '')
+	{
+		$("#provider_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_email").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_shop_name").css({"border-bottom":"solid 1px red"});
+	}
+	
+	else if(address == '')
+	{
+		$("#provider_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_email").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_shop_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_address").css({"border-bottom":"solid 1px red"});
+	}
+	else
 		{
+		
+		$("#provider_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_email").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_shop_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#provider_address").css({"border-bottom":"solid 1px #2a2b3d"});
+		
 			var data = new FormData();
 			var url = "";
 			var u_imgl = $(".user_image").attr('src').length;
@@ -276,7 +329,7 @@ $(".profile_save_button2").click(function()
 			data.append("address", $("#provider_address").val());
 			data.append("provider_id", $("#provider_id").val());
 			data.append("file", $(".user_profile1")[0].files[0]);
-			console.log(data);
+			//console.log(data);
 		    $.ajax({
 				 	url:url,
 				 	data: data,
@@ -287,19 +340,18 @@ $(".profile_save_button2").click(function()
 				 	cache: false,
 				 	success : function(){alert("Update Success")},
 				 	error : function(){alert("Error Found")}
-
-		});//ajax close 
+			});//ajax close
+		}// else close
 	}); // button closed
 })	
 
-$(function(){
+/* $(function(){
 	$(".btnbtn").click(function(){
 		var a = $(".user_profile1")[0].files[0];
 		console.log(a)		
 	})	
 })
-
-
+ */
 </script>
    
         
@@ -321,7 +373,7 @@ $(function(){
                   <span class="spacea"><br><brr></span>
                   
                 <i class="fa fa-phone fa_text_fonts fa_text_fonts1"></i>
-                <input type="number" value="" name="provider_contact" class="text_field1" maxlength="10" id="provider_contact" placeholder="Provider Contact" readonly>
+                <input type="number" onKeyPress="if(this.value.length==10) return false;"  value="" name="provider_contact" class="text_field1" maxlength="10" id="provider_contact" placeholder="Provider Contact" readonly>
                   
                 <br><br>
         
@@ -332,7 +384,7 @@ $(function(){
                   <span class="spacea"><br><brr></span>
                   
                 <i class="fa fa-home fa_text_fonts fa_text_fonts1"></i>
-                <input type="text" value="" name="provider_store_name" class="text_field1" maxlength="100" id="provider_shop_name" placeholder="Provider Store Name" readonly>
+                <input type="text" value="" name="provider_store_name" class="text_field1" maxlength="100" id="provider_shop_name" placeholder="Provider Shop Name" readonly>
                   
                 <br><br>
               
@@ -343,7 +395,7 @@ $(function(){
         		<button class="profile_edit_button1 profile_edit_button2">Edit</button>
                 <div class="profile_buttons" style="display: none;">
                     <button class="profile_edit_button1 profile_cancel_button2">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="profile_edit_button1 profile_save_button2">Save</button>
+                    <button class="profile_edit_button1 profile_save_button2">Update</button>
                 </div>
               </div>
               <div class="container-fluid"></div>

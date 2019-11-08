@@ -164,7 +164,38 @@
      <script>
 $(function(){
 $(".service_save_button3").click(function()
+{
+	
+	var name = $("#member_name").val();
+	var contact = $("#member_contact").val();
+	var address = $("#member_address").val();
+	
+	
+	if(name == '')
+	{
+		$("#member_name").css({"border-bottom":"solid 1px red"});
+	}
+	
+	else if(contact == '' || contact.length!=10)
+	{
+		$("#member_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#member_contact").css({"border-bottom":"solid 1px red"});
+	}
+	
+	else if(address == '')
+	{
+		$("#member_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#member_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#member_address").css({"border-bottom":"solid 1px red"});
+	}
+	else
 		{
+		
+		$("#member_name").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#member_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+		$("#member_address").css({"border-bottom":"solid 1px #2a2b3d"});
+			
+	
 		   var data = new FormData();
 			var url = "";
 			
@@ -180,7 +211,7 @@ $(".service_save_button3").click(function()
 			data.append("address", $("#member_address").val());
 			data.append("provider_id", $("#provider_id").val());
 			data.append("file", $(".provider_team_1")[0].files[0]);
-			console.log(data);
+			//console.log(data);
 		    $.ajax({
 				 	url:url,
 				 	data: data,
@@ -191,8 +222,8 @@ $(".service_save_button3").click(function()
 				 	cache: false,
 				 	success : function(){alert("Update Success")},
 				 	error : function(){alert("Error Found")}
-
-		});//ajax close 
+			});//ajax close
+		}//Else cloe
 	}); // button closed
 })	
 </script>
@@ -255,7 +286,7 @@ $(".service_save_button3").click(function()
             <input type="text" name="provider_team_name" class="text_field3" id="member_name" placeholder="Team Member Name">
             <br><br>
             <i class="fa fa-phone fa_text_fonts1 fa_text_fonts12"></i>
-            <input type="text" name="provider_team_contact" class="text_field3" id="member_contact" placeholder="Team Member Contact">
+            <input type="number" onKeyPress="if(this.value.length==10) return false;"   name="provider_team_contact" class="text_field3" id="member_contact" placeholder="Team Member Contact">
             <br><br>
             <i class="fa fa-envelope fa_text_fonts1 fa_text_fonts12"></i>
             <input type="email" name="provider_team_mail" class="text_field3" id="member_email" placeholder="Team Member Email">

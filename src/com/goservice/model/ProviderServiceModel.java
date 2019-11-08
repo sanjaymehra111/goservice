@@ -19,6 +19,7 @@ public class ProviderServiceModel {
 	String longitude;
 	String updated_date;
 	String created_date;
+	String count;
 	
 	public ProviderServiceModel() {}
 

@@ -87,17 +87,14 @@
         }
         .service_buttons
         {
+        	display:none;
           transition: 0.5s;
         }
 
         .camera_icon2
         {
-          /*position: absolute;
-          height: 100px;*/
+          height: 0;
           width: 150px;
-          /* top: 70%;
-          margin-left: 75%;
-          border-radius: 100%; */
           transition: 0.3s;
           cursor: pointer;
         }
@@ -109,6 +106,8 @@
         {
           transform: scale(1);
         }
+        
+        
         @media(max-width:975px)
         {
           .service_edit_button1
@@ -145,7 +144,7 @@
     <!-- select images file -->
      
     <script>
-
+    
     $(function(){
       $(".text_field2").focus(function(){
         $(".fa_text_fonts11").css({"color":"#6f6486"});
@@ -215,10 +214,8 @@
 	 	contentType:"json",
 		dataType:"json",
 		success:function(data){
-			console.log(data);
+			//console.log(data);
 			var imgl = data[0].image.length;
-			console.log(data[0].image)
-			console.log(imgl)
 			if(imgl > 5	)
 				{
 					var img = data[0].image.split(",");
@@ -238,8 +235,9 @@
 			
 			var lat = data[0].latitude;
 			var log = data[0].longitude;
-			
-			LoadGoogleAddress(lat, log);
+			var id = '1';
+			//console.log(lat);
+			LoadGoogleAddress(lat, log, id);
 			
 		},
 		erroe:function(error){alert(error)},
@@ -254,39 +252,76 @@
 $(function(){
 $(".service_save_button2").click(function()
 		{
-			var data = new FormData();
-			var url = "";
-			
-			var u_imgl = $(".shop_images_style").attr('src').length;
-			var img_file = $(".user_service1").prop('files');
-			 if(u_imgl  < 1000)
-			 	{var url = "update_service_provider_shop_no_img";}	
-			else
-				{var url = "update_service_provider_shop";}
 		
-			data.append("shop_name", $("#provider_shop").val());
-			data.append("contact", $("#provider_contact").val());
-			data.append("email", $("#provider_email").val());
-			data.append("latitude", $(".latitude_value").val());
-			data.append("longitude", $(".longitude_value").val());
-			data.append("address", $("#provider_address").val());
-			data.append("provider_id", $("#provider_id").val());
-			for(var i=0; i<3; i++)
-				{
-					data.append("file",img_file[i]); 	
-				}
-		    $.ajax({
-				 	url:url,
-				 	data: data,
-			 		enctype: 'multipart/form-data',
-				 	processData: false,
-				 	contentType: false,
-			 	  	type: 'Post',    
-				 	cache: false,
-				 	success : function(){alert("Update Success")},
-				 	error : function(){alert("Error Found")}
-
-		});//ajax close 
+		var shop = $("#provider_shop").val();
+		var contact = $("#provider_contact").val();
+		var email = $("#provider_email").val();
+		var address = $("#provider_address").val();
+		var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+		if(shop == '')
+		{
+			$("#provider_shop").css({"border-bottom":"solid 1px red"});
+		}
+		else if(contact == '' || contact.length!=10)
+		{
+			$("#provider_shop").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_contact").css({"border-bottom":"solid 1px red"});
+		}
+		/* else if(email == '' && !email.match(valid_email))
+		{
+			$("#provider_shop").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_email").css({"border-bottom":"solid 1px red"});
+		} */
+		else if(address == '')
+		{
+			$("#provider_shop").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+			//$("#provider_email").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_address").css({"border-bottom":"solid 1px red"});
+		}
+		else
+			{
+			
+			$("#provider_shop").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_contact").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_email").css({"border-bottom":"solid 1px #2a2b3d"});
+			$("#provider_address").css({"border-bottom":"solid 1px #2a2b3d"});
+			
+	
+					var data = new FormData();
+					var url = "";
+					
+					var u_imgl = $(".shop_images_style").attr('src').length;
+					var img_file = $(".user_service1").prop('files');
+					 if(u_imgl  < 1000)
+					 	{var url = "update_service_provider_shop_no_img";}	
+					else
+						{var url = "update_service_provider_shop";}
+				
+					data.append("shop_name", $("#provider_shop").val());
+					data.append("contact", $("#provider_contact").val());
+					data.append("email", $("#provider_email").val());
+					data.append("latitude", $(".latitude_value").val());
+					data.append("longitude", $(".longitude_value").val());
+					data.append("address", $("#provider_address").val());
+					data.append("provider_id", $("#provider_id").val());
+					for(var i=0; i<3; i++)
+						{
+							data.append("file",img_file[i]); 	
+						}
+				    $.ajax({
+						 	url:url,
+						 	data: data,
+					 		enctype: 'multipart/form-data',
+						 	processData: false,
+						 	contentType: false,
+					 	  	type: 'Post',    
+						 	cache: false,
+						 	success : function(){alert("Update Success")},
+						 	error : function(){alert("Error Found")}
+						});//ajax close 
+			}// else Close
 	}); // button closed
 })
 
@@ -296,7 +331,7 @@ $(".service_save_button2").click(function()
 
 /* <!-- Select Gmap Shop Address --> */
 
-LoadAddressmain();
+//LoadAddressmain();
 
 document.getElementById("location_get").onclick = function LoadAddress()
 {
@@ -309,15 +344,15 @@ function LoadAddressmain()
 	    navigator.geolocation.getCurrentPosition(function(position){
 	    var lat = position.coords.latitude;
 		var lng = position.coords.longitude;
-		LoadGoogleAddress(lat, lng);
+		var id= '2';
+		LoadGoogleAddress(lat, lng, id);
     });
 }
 
-		function LoadGoogleAddress(latdb, logdb){
-        	$("#googleMap").css({"height":"250", "width":"100%"});
+		function LoadGoogleAddress(latdb, logdb, id){
+				$("#googleMap").css({"width":"100%","transition":"0.3s"});
             if(navigator.geolocation)
                 navigator.geolocation.getCurrentPosition(function(position){
-                	
                 var lat = latdb;
         		var lng = logdb;
 
@@ -348,6 +383,7 @@ function LoadAddressmain()
                 //Drag Marker
                 google.maps.event.addListener(marker, "dragend", function MrkerDragend(event1)
                     {
+                		id='2';
                         var draglat1 = this.getPosition().lat();
                         var draglnt1 = this.getPosition().lng();
                         LocationFunction(draglat1, draglnt1);
@@ -356,6 +392,7 @@ function LoadAddressmain()
                 //Click Location
                 google.maps.event.addListener(map, 'click', function MarkerClick(event2) 
                     {
+                		id='2';
                        var lat1 = event2.latLng.lat();
                        var lng1 = event2.latLng.lng();
                        LocationFunction(lat1, lng1);
@@ -367,8 +404,7 @@ function LoadAddressmain()
                     {
                 	    var input = document.getElementById('provider_address');
                 	    var autocomplete = new google.maps.places.Autocomplete(input);
-                	    
-                      	google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                	    google.maps.event.addListener(autocomplete, 'place_changed', function () {
                         var place = autocomplete.getPlace();
                         var lat2 = place.geometry.location.lat();
                         var lng2 = place.geometry.location.lng();
@@ -383,18 +419,21 @@ function LoadAddressmain()
                 LatLng = new google.maps.LatLng(lat, lng);
                 placeMarker(LatLng);
 
-                $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false&key=AIzaSyAa4ggTa-tkUQEW6Cv5_h8o-WOjiuboiOY", function(data)
+                $.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng+"&sensor=false&key=AIzaSyAhJW0BL0uuVzXfhkhiQb3ZXF8f4pQ0vYQ", function(data)
                     {
-                        console.log(data);
+                        //console.log(data);
                         var DataLength = data.results[0].address_components.length;
                                 var j;
                                 var address = "";
+                                //console.log(id);
+                            	
                                 for(j=0; j<DataLength; j++)
                                 {
                                     address+=data.results[0].address_components[j].long_name + ", ";
-                                    $(".service_user_address").val(address);
-                                    $(".latitude_value").val(lat);
-                                    $(".longitude_value").val(lng);
+                                    if(id==2)
+                                    	{$(".service_user_address").val(address);}
+                                        $(".latitude_value").val(lat);
+                                    	$(".longitude_value").val(lng);
                                 }
                     })
                 }
@@ -407,9 +446,6 @@ function LoadAddressmain()
             }
     }
 </script>
-  
-
-
 
 <style>
 .shop_images_style
@@ -430,6 +466,13 @@ function LoadAddressmain()
 	transform:scale(1.1);
 	z-index: 999;
 }
+#location_get:hover
+{
+	cursor: pointer;
+	transform:scale(1.21);
+	color:#c72020;
+}
+
 .modal-dialog
 {
 width:80%
@@ -445,6 +488,42 @@ width:auto;
 
 }
 </style>
+
+<script>
+$(function(){
+	
+	/* $("#provider_contact").keypress(function(e)
+			{if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57))
+			return false; else return true;}) */
+			
+			/* $("#provider_contact").keypress(function(e)
+					{if (e.length > 10) return false; else return true;}) */
+	
+			
+	$(".service_edit_button2").click(function(){
+		$(".camera_icon2").css({"height":"auto"});
+		$(".service_buttons").show();
+		$(".text_field2").prop('readonly', false);
+		$("#googleMap").css({"height":"250px"});
+		
+		$(this).hide();
+		
+	})
+	
+	$(".service_cancel_button2").click(function(){
+		$(".camera_icon2").css({"height":"0px"});
+		$(".service_buttons").hide();
+		$(".text_field2").prop('readonly', true);
+		$("#googleMap").css({"height":"0"});
+		$(".service_edit_button2").show	();
+	})
+	
+	
+})
+
+
+
+</script>
 
 
         <div class="col-md-1"></div>
@@ -464,31 +543,32 @@ width:auto;
 			<div class="col-md-8" style="text-align: center;">
 			<br>
             <i class="fa fa-home fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_name" class="text_field2" id="provider_shop" placeholder="Shop Name">
+            <input type="text" maxlength="100" name="provider_shop_name" class="text_field2" id="provider_shop" placeholder="Shop Name" readonly>
             <br><br>
             <i class="fa fa-phone fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="text" name="provider_shop_contact" class="text_field2" id="provider_contact" placeholder="Shop Contact">
+            <input type="number" maxlength="10" name="provider_shop_contact" class="text_field2" id="provider_contact" onKeyPress="if(this.value.length==10) return false;" placeholder="Shop Contact" readonly>
             <br><br>
             <i class="fa fa-envelope fa_text_fonts1 fa_text_fonts11"></i>
-            <input type="email" name="provider_shop_mail" class="text_field2" id="provider_email" placeholder="Shop Email">
+            <input type="email" maxlength="100" name="provider_shop_mail" class="text_field2" id="provider_email" placeholder="Shop Email" readonly>
             <br><br>
-            <i class="fa fa-map-marker fa_text_fonts1 fa_text_fonts11" id="location_get" style="cursor: pointer;"></i>
-            <input type="text" maxlength="100" id="provider_address" name="provider_shop_address" class="text_field2 fixbutton service_input_text service_user_address" placeholder="Shop Address">
+            <i class="fa fa-map-marker fa_text_fonts1 fa_text_fonts11" id="location_get"></i>
+            <input type="text" maxlength="200" id="provider_address" name="provider_shop_address" class="text_field2 fixbutton service_input_text service_user_address" placeholder="&#8592; Click Here For Auto Search" readonly>
             <br><br>
             <input type="text" class="latitude_value hide">
             <input type="text" class="longitude_value hide">
 	        <br>
-	        <div id="googleMap"></div>
+	        <div id="googleMap" style="height:0px; overflow:hidden;"></div>
         
-            <input type="text" value="${sessionData.user_id}" class="" id="provider_id">	
+            <input type="text" value="${sessionData.user_id}" class="hide" id="provider_id">	
             
 <br><br>
 </div>              
           <div class="col-md-12" style="text-align: center;">
-            <!-- <button class="service_edit_button1 service_edit_button2">Edit</button> -->
+            <button class="service_edit_button1 service_edit_button2">Edit</button>
+            
             <div class="service_buttons">
                 <button class="service_edit_button1 service_cancel_button2">Cancel</button> &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="service_edit_button1 service_save_button2">Save</button>
+                <button class="service_edit_button1 service_save_button2">Update</button>
             </div>
           </div>
           <div class="container-fluid"></div>

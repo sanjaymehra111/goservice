@@ -26,6 +26,9 @@ import com.goservice.model.SessionModel;
 public class MainController {
 
 @Autowired
+UniqueCodeGenerator ucgdao;
+
+@Autowired
 ProviderShopDaoImpl psdao;
 
 @Autowired
@@ -338,5 +341,15 @@ ProviderUpdateDaoImpl pudao;
 	{
 		return "user/user_profile";
 	}
+	
+	@ResponseBody
+	@RequestMapping("OtpGenerator")
+	public String OtpGenerator()
+	{
+		String filename= ucgdao.GetOtpCode();
+		return filename;
+	}
+	
+	
 	
 }

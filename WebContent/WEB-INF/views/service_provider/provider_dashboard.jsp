@@ -18,10 +18,17 @@
 <link rel="shortcut icon" href="/goservice/files/images/logo3-plane.png">
 
 <!--For GeoLocaitgon-->
-<script src="http://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyAa4ggTa-tkUQEW6Cv5_h8o-WOjiuboiOY&amp;libraries=places,geometry"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;key=AIzaSyAhJW0BL0uuVzXfhkhiQb3ZXF8f4pQ0vYQ&amp;libraries=places,geometry"></script>
 
 
 <style>
+
+        input[type=number]::-webkit-inner-spin-button, 
+			input[type=number]::-webkit-outer-spin-button { 
+			  -webkit-appearance: none; 
+			  margin: 0; 
+			}
+
 
     * {
       padding: 0;
@@ -483,8 +490,7 @@
       }
       .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {background-color: transparent !important}
     }
-    
-    
+
 </style>
     
 <script>
@@ -699,14 +705,16 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My Dashboard <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="import_provider" pagename="profile" textname="Profile"><a href="#"><i class="fa fa-user-o fw"></i> My Profile</a></li>
-                  <li><a href="#"><i class="fa fa-envelope-o fw"></i> My inbox</a></li>
-                  <li><a href="#"><i class="fa fa-question-circle-o fw"></i> Help</a></li>
+                  <li class="import_provider" pagename="home" textname="Dashboard"><a href="#"><i class="fa fa-dashboard"></i> Dashoard</a></li>
+                  
+                  <!-- <li><a href="#"><i class="fa fa-envelope-o fw"></i> My inbox</a></li>
+                  <li><a href="#"><i class="fa fa-question-circle-o fw"></i> Help</a></li> -->
                   <li role="separator" class="divider"></li>
                   <li><a href="provider_logout"><i class="fa fa-sign-out"></i> Log out</a></li>
                 </ul>
               </li>
-              <li><a href="#"><i class="fa fa-comments"></i><span>23</span></a></li>
-              <li><a href="#"><i class="fa fa-bell-o"></i><span>98</span></a></li>
+              <!-- <li><a href="#"><i class="fa fa-comments"></i><span>23</span></a></li>
+              <li><a href="#"><i class="fa fa-bell-o"></i><span>98</span></a></li> -->
               <li style="margin-top: 15px;"><a href="#"><i data-show="show-side-navigation1" class="fa fa-bars show-side-btn"></i></a></li>
             </ul>
           </div>

@@ -361,11 +361,29 @@ public class ProviderFunctionContrroller
 		return shop_list;
 	}
 	
+	@ResponseBody
+	@RequestMapping("get_count_list")
+	public String Get_count_list(@RequestParam String id)
+	{
+		Gson gson = new Gson();
+		List<ProviderServiceModel> car_service= pudao.CountCarService(id);
+		List<ProviderServiceModel> bike_service= pudao.CountBikeService(id);
+		List<ProviderMemberModel> team_service= pudao.CountTeamService(id);
+		List<ProviderMemberModel> team_member = pudao.GetTeamMember(id);
+		String car = gson.toJson(car_service);
+		String bike = gson.toJson(bike_service);
+		String team = gson.toJson(team_service);
+		String member = gson.toJson(team_member);
+		String details = '['+car+','+bike+','+team+','+member+']';
+		return details;
+	}
+
 	
 	@RequestMapping("/provider_logout")
 	public String provider_logout(HttpSession session)
 	{
 		session.invalidate();
 		return "redirect:/index";
-	}	
+	}
+	
 }	
