@@ -342,14 +342,6 @@ ProviderUpdateDaoImpl pudao;
 		return "user/user_profile";
 	}
 	
-	@ResponseBody
-	@RequestMapping("OtpGenerator")
-	public String OtpGenerator()
-	{
-		String filename= ucgdao.GetOtpCode();
-		return filename;
-	}
-	
 	
 	
 }

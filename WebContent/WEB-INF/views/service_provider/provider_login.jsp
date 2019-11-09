@@ -251,13 +251,25 @@ $(function(){
 		var contact ="";
 		var GeneOtp ="";
 		
-$(".user-signup-button1").click(function(){
+	$(".user-signup-button1").click(function(){
 		name = $(".user_id").val();
 		email = $(".user_email").val();
 		password = $(".user_password").val();
 		contact = $(".user_contact").val();
 		var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		
+		/* $.ajax({
+			url:"OtpGenerator",
+			data:{name:name, contact:contact},
+			dataType:'text',
+			contentType:'text',
+			cache:false,
+			success:function(otp){
+				alert("success");
+				},
+			error:function(error){alert("error 2")},
+		})// ajax close
+		 */
 		
 		if(name == null ||  name == "")
 		{
@@ -292,39 +304,49 @@ $(".user-signup-button1").click(function(){
 			$(".user_password").css({"border":"solid 0.5px black"});
 			$(".user_contact").css({"border":"solid 0.5px black"});
 
-			
 				$.ajax({
 					url:"OtpGenerator",
+					data:{name:name, contact:contact},
 					dataType:'text',
 					contentType:'text',
 					cache:false,
-					success:function(otp){
-							GeneOtp=otp;
-							var SendOtp = 'http://bulksms.softonicsolution.com/api/sendmsg.php?user=alex-c&pass=sahab123&sender=ALEXCO&phone='+contact+'&text='+GeneOtp+'&priority=ndnd&stype=normal' 
-							window.open(SendOtp,'_blank');
-						},
-					error:function(error){alert("error")},
-				})
-
-			
+					success:function(otp){alert("OTP Sent")},
+					error:function(error){alert("error 2")},
+				})// ajax close
+				
 			$(".otp_button1").click();
-			
-			
-			
-			
-		}
-})// user-signup-button1 button click close
+				
+		} // else close
+	})// user-signup-button1 button click close
 		
 		
 		
 	$(".check_otp").click(function(){
 		
-		var user_otp = $(".otp_value").val();
+		$.ajax({
+			url:"ValidateOtp",
+			data :{otp:$(".otp_value").val(),name:name, contact:contact},
+			contentType: "text",
+			dataType: "text",
+	 	  	cache:false,    
+		 	success:function(data){
+		 		if(data=='success')
+		 			signup(name, contact, email, password);
+		 		else
+		 			alert("Please Try Again");
+				},
+				
+			error:function(error){alert("error")},
+		}) // ajax close 
+		
+		
+	/* 	var user_otp = $(".otp_value").val();
 		if(user_otp == GeneOtp)
-			signup(name, contact, email, password);
+			alert("OTP Match");
+			//signup(name, contact, email, password);
 		else
-			alert("Wrong OTP Please regeneration OTP")
-		//console.log(name+","+contact+","+email+","+password);
+			alert("Wrong OTP Please regenerate OTP");
+		//console.log(name+","+contact+","+email+","+password); */
 		 
 	
 	})	
@@ -346,17 +368,20 @@ $(".user-signup-button1").click(function(){
 		} // signup close
 	
 })
+
 </script>
 
             <div class="user_signup_section" style="display: none">
-                <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Sign Up for Free</p><br>
+            
+            
+                <p style="font-size: 30px; color: rgba(255, 255, 255, 0.76)">Sign Up for a Free</p><br>
                 <input type="text" maxlength="50" class="user_id form-text1" placeholder="Name"><br><br>
                 <input type="number" maxlength="10" class="user_contact form-text1" onKeyPress="if(this.value.length==10) return false;" placeholder="Contact"><br><br>          
                 <input type="email" maxlength="50" class="user_email form-text1" placeholder="Email ID"><br><br>
                 <input type="password" maxlength="50" class="user_password form-text1" placeholder="Password">
                 <br><br><br><br>    
                 <button type="submit" class="user-signup-button1 user_submit_button1">SIGN UP</button>
-                <button type="button" class="otp_button1" data-toggle="modal" data-target="#myOtpModal">otp</button>
+                <button type="button" class="otp_button1 hide" data-toggle="modal" data-target="#myOtpModal">otp</button>
                 	
                 <br><br><br><br><br>
             </div>
