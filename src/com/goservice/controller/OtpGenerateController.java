@@ -1,4 +1,4 @@
-package com.serviceonway.controller;
+package com.goservice.controller;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.serviceonway.dao.OtpGenerateDaoImpl;
-import com.serviceonway.model.OtpGenerateModel;
+import com.goservice.dao.OtpGenerateDaoImpl;
+import com.goservice.model.OtpGenerateModel;
 
 @Controller
 public class OtpGenerateController {

@@ -1,4 +1,4 @@
-package com.serviceonway.crud;
+package com.goservice.crud;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 

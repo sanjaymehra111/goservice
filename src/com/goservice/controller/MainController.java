@@ -1,4 +1,4 @@
-package com.serviceonway.controller;
+package com.goservice.controller;
 
 import java.util.List;
 
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
-import com.serviceonway.dao.AdminServiceDaoImpl;
-import com.serviceonway.dao.ProviderProfileDaoIpml;
-import com.serviceonway.dao.ProviderShopDaoImpl;
-import com.serviceonway.dao.ProviderUpdateDaoImpl;
-import com.serviceonway.model.ProviderProfileModel;
-import com.serviceonway.model.ProviderShopModel;
-import com.serviceonway.model.SessionModel;
+import com.goservice.dao.AdminServiceDaoImpl;
+import com.goservice.dao.ProviderProfileDaoIpml;
+import com.goservice.dao.ProviderShopDaoImpl;
+import com.goservice.dao.ProviderUpdateDaoImpl;
+import com.goservice.model.ProviderProfileModel;
+import com.goservice.model.ProviderShopModel;
+import com.goservice.model.SessionModel;
 
 
 @Controller

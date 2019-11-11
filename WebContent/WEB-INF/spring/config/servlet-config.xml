@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">  
 
     <!-- Provide support for component scanning -->
-	<context:component-scan base-package="com.serviceonway"/>
+	<context:component-scan base-package="com.goservice"/>
 	
 	<!--Provide support for conversion, formatting and validation -->  
 	<mvc:annotation-driven/>
@@ -31,8 +31,8 @@
 		<property name="url" value="jdbc:mysql://localhost:3306/goservice" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
-	</bean> -->
-	
+	</bean>
+	 -->
 	
 	<!-- Define the data source For Live Server-->
 	
@@ -50,7 +50,7 @@
 		<property name="dataSource" ref="db" />
 	</bean>	
 	
-	<bean id="dao" class="com.serviceonway.crud.Connect" >
+	<bean id="dao" class="com.goservice.crud.Connect" >
 		<property name="template" ref="template" />
 	</bean>
 	

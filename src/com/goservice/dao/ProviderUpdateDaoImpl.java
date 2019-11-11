@@ -1,4 +1,4 @@
-package com.serviceonway.dao;
+package com.goservice.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,10 +14,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.serviceonway.model.ProviderMemberModel;
-import com.serviceonway.model.ProviderProfileModel;
-import com.serviceonway.model.ProviderServiceModel;
-import com.serviceonway.model.ProviderShopModel;
+import com.goservice.model.ProviderMemberModel;
+import com.goservice.model.ProviderProfileModel;
+import com.goservice.model.ProviderServiceModel;
+import com.goservice.model.ProviderShopModel;
 
 @Repository
 public class ProviderUpdateDaoImpl {

@@ -1,4 +1,4 @@
-package com.serviceonway.controller;
+package com.goservice.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -20,14 +20,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
-import com.serviceonway.dao.PasswordEncryptSha512;
-import com.serviceonway.dao.ProviderProfileDaoIpml;
-import com.serviceonway.dao.ProviderSignIn_UpDaoImple;
-import com.serviceonway.dao.ProviderUpdateDaoImpl;
-import com.serviceonway.model.ProviderMemberModel;
-import com.serviceonway.model.ProviderProfileModel;
-import com.serviceonway.model.ProviderServiceModel;
-import com.serviceonway.model.SessionModel;
+import com.goservice.dao.PasswordEncryptSha512;
+import com.goservice.dao.ProviderProfileDaoIpml;
+import com.goservice.dao.ProviderSignIn_UpDaoImple;
+import com.goservice.dao.ProviderUpdateDaoImpl;
+import com.goservice.model.ProviderMemberModel;
+import com.goservice.model.ProviderProfileModel;
+import com.goservice.model.ProviderServiceModel;
+import com.goservice.model.SessionModel;
 
 @Controller
 public class ProviderFunctionContrroller 

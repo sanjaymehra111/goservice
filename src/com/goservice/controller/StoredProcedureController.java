@@ -1,4 +1,4 @@
-package com.serviceonway.controller;
+package com.goservice.controller;
 /*package com.goservice.controller;
 
 import java.util.List;

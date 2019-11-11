@@ -1,4 +1,4 @@
-package com.serviceonway.model;
+package com.goservice.model;
 
 import lombok.Data;
 

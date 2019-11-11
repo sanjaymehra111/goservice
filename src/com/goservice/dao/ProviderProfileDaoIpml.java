@@ -1,4 +1,4 @@
-package com.serviceonway.dao;
+package com.goservice.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.serviceonway.model.ProviderProfileModel;
+import com.goservice.model.ProviderProfileModel;
 
 @Repository
 public class ProviderProfileDaoIpml {

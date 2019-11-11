@@ -1,4 +1,4 @@
-package com.serviceonway.dao;
+package com.goservice.dao;
 
 import java.util.List;
 import java.sql.ResultSet;
@@ -9,7 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.serviceonway.model.ProviderShopModel;
+import com.goservice.model.ProviderShopModel;
 
 @Repository
 public class ProviderShopDaoImpl {

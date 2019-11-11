@@ -1,4 +1,4 @@
-package com.serviceonway.controller;
+package com.goservice.controller;
 
 import java.math.BigInteger;
 import java.util.UUID;

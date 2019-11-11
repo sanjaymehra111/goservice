@@ -1,4 +1,4 @@
-package com.serviceonway.dao;
+package com.goservice.dao;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

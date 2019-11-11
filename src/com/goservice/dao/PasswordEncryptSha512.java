@@ -1,4 +1,4 @@
-package com.serviceonway.dao;
+package com.goservice.dao;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

@@ -1,4 +1,4 @@
-package com.serviceonway.controller;
+package com.goservice.controller;
 
 import java.util.List;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.serviceonway.dao.AdminServiceDaoImpl;
-import com.serviceonway.dao.MasterDaoImpl;
-import com.serviceonway.model.AdminServiceModel;
+import com.goservice.dao.AdminServiceDaoImpl;
+import com.goservice.dao.MasterDaoImpl;
+import com.goservice.model.AdminServiceModel;
 
 @Controller
 public class AdminFunctionController {

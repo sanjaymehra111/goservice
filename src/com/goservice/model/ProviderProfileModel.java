@@ -1,20 +1,22 @@
-package com.serviceonway.model;
+package com.goservice.model;
 
 import lombok.Data;
 
 @Data
-public class ProviderMemberModel {
-	String team_member_id;
+public class ProviderProfileModel {
+	
 	String provider_id;
-	String name;	
+	String name;
 	String contact; 
 	String email;
+	String password;
+	String shop_name;
 	String address;
 	String image;
 	String updated_date;
 	String created_date;
-	String count;
+	String status;
 	
-	public ProviderMemberModel() {}
+	public ProviderProfileModel() {}
 
 }
