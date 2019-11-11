@@ -128,6 +128,45 @@
     opacity: 0.1;
 }
 
+    .otp_value
+    {
+    	border:none;
+    	outline:none;
+    	border-bottom:solid 2px #0000001c;
+    	text-align:center;
+    	font-size:18px;
+    	transition:0.3s; 
+    }
+    
+    .otp_value:focus
+    {
+    	border-bottom:solid 2px green;
+    }
+    
+    .modal-dialog
+    {
+    	top:20%;
+    }	
+    .otp_button2
+    {
+    	width: 160px;
+	    padding: 7px;
+	    background: #17699a;
+	    border: none;
+	    outline: none;
+	    color: white;
+	    text-transform: uppercase;
+	    transition:0.3s;
+	}
+	.otp_button2:hover
+	{
+		background: #172933;
+	}
+	.otp_button2:active {
+	transition:0.1s;
+	transform:scale(0.95);
+	}
+
 @media(max-width:975px)
 {
     .user-form-button1
@@ -258,20 +297,7 @@ $(function(){
 		contact = $(".user_contact").val();
 		var valid_email = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		
-		/* $.ajax({
-			url:"OtpGenerator",
-			data:{name:name, contact:contact},
-			dataType:'text',
-			contentType:'text',
-			cache:false,
-			success:function(otp){
-				alert("success");
-				},
-			error:function(error){alert("error 2")},
-		})// ajax close
-		 */
-		
-		if(name == null ||  name == "")
+			if(name == null ||  name == "")
 		{
 			$(".user_id").css({"border":"solid 2px red"});
 		}
@@ -338,18 +364,23 @@ $(function(){
 				
 			error:function(error){alert("error")},
 		}) // ajax close 
-		
-		
-	/* 	var user_otp = $(".otp_value").val();
-		if(user_otp == GeneOtp)
-			alert("OTP Match");
-			//signup(name, contact, email, password);
-		else
-			alert("Wrong OTP Please regenerate OTP");
-		//console.log(name+","+contact+","+email+","+password); */
-		 
+	}) // check_otp button close
 	
-	})	
+	
+	
+	
+$(".regenerate_otp").click(function(){
+		
+		$.ajax({
+			url:"RegenerateOtp",
+			data :{name:name, contact:contact},
+			contentType: "text",
+			dataType: "text",
+	 	  	cache:false,    
+		 	success:function(data){alert("regenerate success"); console.log(data)},
+			error:function(error){alert("regenerate error")},
+		}) // ajax close 
+	}) // regenerate_otp button close
 	
 	
 		
@@ -404,46 +435,6 @@ $(function(){
         </script>
 </div>
 
-    <style>
-    .otp_value
-    {
-    	border:none;
-    	outline:none;
-    	border-bottom:solid 2px #0000001c;
-    	text-align:center;
-    	font-size:18px;
-    	transition:0.3s; 
-    }
-    
-    .otp_value:focus
-    {
-    	border-bottom:solid 2px green;
-    }
-    
-    .modal-dialog
-    {
-    	top:20%;
-    }	
-    .otp_button2
-    {
-    	width: 160px;
-	    padding: 7px;
-	    background: #17699a;
-	    border: none;
-	    outline: none;
-	    color: white;
-	    text-transform: uppercase;
-	    transition:0.3s;
-	}
-	.otp_button2:hover
-	{
-		background: #172933;
-	}
-	.otp_button2:active {
-	transition:0.1s;
-	transform:scale(0.95);
-	}
-    </style>  
     
  <div class="modal fade" id="myOtpModal" role="dialog">
       <div class="modal-dialog">
@@ -453,7 +444,7 @@ $(function(){
           <h4>ENTER OTP</h4>
 		    <input type="number" class="otp_value" onKeyPress="if(this.value.length==6) return false;">
 		    <br><br>
-		    <button class="otp_button2">Regenrate OTP</button>
+		    <button class="otp_button2 regenerate_otp">Regenrate OTP</button>
 		    <button class="otp_button2 check_otp">Submit</button>
 		    <br><br>
 		    </div>

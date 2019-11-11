@@ -11,9 +11,10 @@
         http://www.springframework.org/schema/mvc  
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">  
 
-
-	<context:component-scan base-package="com.goservice"/>
+    <!-- Provide support for component scanning -->
+	<context:component-scan base-package="com.serviceonway"/>
 	
+	<!--Provide support for conversion, formatting and validation -->  
 	<mvc:annotation-driven/>
 	
 	<mvc:resources location="/resources/" mapping="/files/**" />
@@ -37,7 +38,7 @@
 	
 	<bean id="db" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://103.117.180.175:3306/goservice" />
+		<property name="url" value="jdbc:mysql://103.117.180.175:3306/serviceonway" />
 		<property name="username" value="root" />
 		<property name="password" value="BGk3FVgKXR" />
 	</bean>
@@ -49,7 +50,7 @@
 		<property name="dataSource" ref="db" />
 	</bean>	
 	
-	<bean id="dao" class="com.goservice.crud.Connect" >
+	<bean id="dao" class="com.serviceonway.crud.Connect" >
 		<property name="template" ref="template" />
 	</bean>
 	
